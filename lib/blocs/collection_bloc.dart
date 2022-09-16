@@ -1,13 +1,13 @@
 import 'package:deeply_nested_objects/models/collection_model.dart';
-import 'package:deeply_nested_objects/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InitialState extends Collection {
   InitialState()
       : super(
-            name: "Collection 1",
-            showType: ShowType.collection,
-            ) {
+          name: "Collection 1",
+          showType: ShowType.collection,
+        ) {
+    // TODO: implement collection here during initialization.
     // Collection series1 = Collection(
     //     name: "Series 1",
     //     showType: ShowType.series,
@@ -55,7 +55,7 @@ class InitialState extends Collection {
 abstract class BLoCEvents {}
 
 class AddSeries extends BLoCEvents {
-  AddSeries(this.series);
+  AddSeries({required this.series});
   final Collection series;
 }
 

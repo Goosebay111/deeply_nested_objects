@@ -1,6 +1,5 @@
 import 'package:deeply_nested_objects/blocs/collection_bloc.dart';
 import 'package:deeply_nested_objects/models/collection_model.dart';
-import 'package:deeply_nested_objects/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,11 +30,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<CollectionBloc, Collection>(
       builder: (context, state) {
@@ -44,47 +38,52 @@ class _MyHomePageState extends State<MyHomePage> {
             title: const Text('Flutter Demo Home Page'),
           ),
           body: ListView.builder(
-            itemCount: state.allHierarchy(state).length,
+            itemCount: state.hierarchy(state).length,
             itemBuilder: (context, index) {
               return ListTile(
                 onTap: () {
+                  var showType = state.hierarchy(state)[index].showType;
                   setState(() {
-                    if (state.allHierarchy(state)[index].showType ==
-                        ShowType.collection) {
-                      BlocProvider.of<CollectionBloc>(context)
-                          .add(AddSeries(Collection(
-                        name: "Series ${state.getChildren(state.allHierarchy(state)[index]).length + 1}",
+                    /// Determine which type of show is added to its parent.
+                    /// The logic for the addition happens in the model.
+                    /// The problem that I have here is that the setState is still being required to be used.
+                    /// todo: research to see if a future/stream builder is needed here.
+                    if (showType == ShowType.collection) {
+                      BlocProvider.of<CollectionBloc>(context).add(AddSeries(
+                          series: Collection(
+                        name:
+                            "Series ${state.nodeChildren(state.hierarchy(state)[index]).length + 1}",
                         showType: ShowType.series,
                       )));
                     }
                   });
-                  if (state.allHierarchy(state)[index].showType ==
-                      ShowType.series) {
+                  if (showType == ShowType.series) {
                     BlocProvider.of<CollectionBloc>(context).add(AddSeason(
-                        series: state.allHierarchy(state)[index],
+                        series: state.hierarchy(state)[index],
                         season: Collection(
-                          name: 'Season ${state.getChildren(state.allHierarchy(state)[index]).length + 1}',
+                          name:
+                              'Season ${state.nodeChildren(state.hierarchy(state)[index]).length + 1}',
                           showType: ShowType.season,
                         )));
                   }
-                  if (state.allHierarchy(state)[index].showType ==
-                      ShowType.season) {
+                  if (showType == ShowType.season) {
                     BlocProvider.of<CollectionBloc>(context).add(AddEpisode(
-                        season: state.allHierarchy(state)[index],
+                        season: state.hierarchy(state)[index],
                         episode: Collection(
-                          name: "Episode ${state.getChildren(state.allHierarchy(state)[index]).length + 1}",
+                          name:
+                              "Episode ${state.nodeChildren(state.hierarchy(state)[index]).length + 1}",
                           showType: ShowType.episode,
                         )));
                   }
                 },
                 leading: Card(
-                  child:
-                      TextWidget(name: state.allHierarchy(state)[index].name),
+                  child: TextWidget(name: state.hierarchy(state)[index].name),
                 ),
               );
             },
           ),
           floatingActionButton: FloatingActionButton(
+            child: const Text('to json'),
             onPressed: () {
               var toJson = state.toJson();
               var fromJson = Collection.fromJson(toJson);
@@ -94,5 +93,15 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
     );
+  }
+}
+
+class TextWidget extends StatelessWidget {
+  const TextWidget({super.key, required this.name});
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(name);
   }
 }
