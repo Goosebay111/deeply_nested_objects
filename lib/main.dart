@@ -28,11 +28,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<CollectionBloc, Shows>(
       builder: (context, state) {
@@ -90,9 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              var toJson = state.toJson();
-              var fromJson = Shows.fromJson(toJson);
-              print(fromJson);
+              // var toJson = state.toJson();
+              // var fromJson = Shows.fromJson(toJson);
             },
           ),
         );
