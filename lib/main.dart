@@ -3,9 +3,7 @@ import 'package:deeply_nested_objects/models/collection_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-main() {
-  runApp(const MyApp());
-}
+main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
