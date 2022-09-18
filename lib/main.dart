@@ -50,12 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     if (state.allHierarchy(state)[index].showType ==
                         ShowType.collection) {
-                      BlocProvider.of<CollectionBloc>(context)
-                          .add(AddItem(null, Shows(
-                        name:
-                            "Series ${state.getChildren(state.allHierarchy(state)[index]).length + 1}",
-                        showType: ShowType.series,
-                      )));
+                      BlocProvider.of<CollectionBloc>(context).add(AddItem(
+                          null,
+                          Shows(
+                            name:
+                                "Series ${state.getChildren(state.allHierarchy(state)[index]).length + 1}",
+                            showType: ShowType.series,
+                            children: [],
+                          )));
                     }
                   });
                   if (state.allHierarchy(state)[index].showType ==
@@ -66,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           name:
                               'Season ${state.getChildren(state.allHierarchy(state)[index]).length + 1}',
                           showType: ShowType.season,
+                          children: [],
                         )));
                   }
                   if (state.allHierarchy(state)[index].showType ==
@@ -76,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           name:
                               "Episode ${state.getChildren(state.allHierarchy(state)[index]).length + 1}",
                           showType: ShowType.episode,
+                          children: [],
                         )));
                   }
                 },

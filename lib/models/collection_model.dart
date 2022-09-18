@@ -1,22 +1,19 @@
 enum ShowType { collection, series, season, episode }
 
 class Shows {
-  Shows(
-      {required this.name,
-      required this.showType});
+  Shows({required this.name, required this.showType, required this.children});
   final String name;
-  List<Shows> children = [];
+  final List<Shows> children;
   final ShowType showType;
 
-
-  void addDetail(Shows? parent, Shows child ) { 
+  void addDetail(Shows? parent, Shows child) {
     if (parent == null) {
       children.add(child);
     } else {
       parent.children.add(child);
     }
   }
-  
+
   List<Shows> allHierarchy(Shows node) {
     List<Shows> list = [];
     list.add(node);
@@ -45,9 +42,10 @@ class Shows {
 
   factory Shows.fromJson(Map<String, dynamic> json) {
     return Shows(
-      name: json['name'],
-      showType: json['showType'],
-    )..children =
-        json['children'].map<Shows>((child) => Shows.fromJson(child)).toList();
+        name: json['name'],
+        showType: json['showType'],
+        children: json['children']
+            .map<Shows>((child) => Shows.fromJson(child))
+            .toList());
   }
 }

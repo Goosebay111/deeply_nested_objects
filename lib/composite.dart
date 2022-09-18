@@ -1,1 +1,0 @@
-// I would like a class that holds an int value and contains a list of itself that is called children. I would like the class to be able to add a child to the children. I would like to add a child to a child of the children, and then I would would to add a child to the child of a child.
