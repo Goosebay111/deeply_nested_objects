@@ -9,6 +9,7 @@ class InitialState extends Shows {
           name: "Collection 1",
           showType: ShowType.collection,
         ) {
+    // TODO: need to streamline this in order to use it for the bloc copyWith approach.
     Shows series1 = Shows(
       name: "Series 1",
       showType: ShowType.series,
@@ -41,6 +42,9 @@ class InitialState extends Shows {
       name: "Episode 4",
       showType: ShowType.episode,
     );
+
+    // todo: This looks like an example of a tree structure.
+    // todo: I am betting that the composite design pattern can be used here.
 
     super.addDetail(null, series1);
     super.addDetail(series1, season1);
