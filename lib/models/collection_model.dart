@@ -1,19 +1,22 @@
 enum ShowType { collection, series, season, episode }
 
 class Shows {
-  Shows({required this.name, required this.showType});
+  Shows(
+      {required this.name,
+      required this.showType});
   final String name;
   List<Shows> children = [];
   final ShowType showType;
 
-  void addDetail(Shows? parent, Shows child) {
+
+  void addDetail(Shows? parent, Shows child ) { 
     if (parent == null) {
       children.add(child);
     } else {
       parent.children.add(child);
     }
   }
-
+  
   List<Shows> allHierarchy(Shows node) {
     List<Shows> list = [];
     list.add(node);
@@ -23,6 +26,7 @@ class Shows {
     return list;
   }
 
+  // return the children of a node that might be a series, season, or episode
   List<Shows> getChildren(Shows node) {
     List<Shows> list = [];
     for (Shows child in node.children) {

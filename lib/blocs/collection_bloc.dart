@@ -64,31 +64,9 @@ class AddItem extends BLoCEvents {
   final Shows child;
 }
 
-// class AddSeries extends BLoCEvents {
-//   AddSeries(this.series);
-//   final Shows series;
-// }
-
-// class AddSeason extends BLoCEvents {
-//   AddSeason({required this.series, required this.season});
-//   final Shows series;
-//   final Shows season;
-// }
-
-// class AddEpisode extends BLoCEvents {
-//   AddEpisode({required this.season, required this.episode});
-//   final Shows season;
-//   final Shows episode;
-// }
 
 class CollectionBloc extends Bloc<BLoCEvents, InitialState> {
   CollectionBloc() : super(InitialState()) {
     on<AddItem>((event, emit) => emit(state..addDetail(event.parent, event.child)));
-    // on<AddSeries>(
-    //     ((event, emit) => emit(state..addDetail(null, event.series))));
-    // on<AddSeason>(
-    //     ((event, emit) => emit(state..addDetail(event.series, event.season))));
-    // on<AddEpisode>(
-    //     ((event, emit) => emit(state..addDetail(event.season, event.episode))));
   }
 }
