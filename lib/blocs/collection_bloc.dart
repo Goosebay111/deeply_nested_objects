@@ -11,7 +11,6 @@ class InitialState extends Shows {
           showType: ShowType.collection,
           children: [],
         ) {
-    // TODO: need to streamline this in order to use it for the bloc copyWith approach.
 
     var series1 = Shows(
       name: "Series 1",
@@ -73,9 +72,19 @@ class AddItem extends BLoCEvents {
   final Shows child;
 }
 
+class CopyWith extends BLoCEvents {
+  CopyWith(this.newState);
+  final InitialState newState;
+}
+
 class CollectionBloc extends Bloc<BLoCEvents, InitialState> {
   CollectionBloc() : super(InitialState()) {
+    // TODO: to get this to work, we need to change the state here with a copyWith strategy...
     on<AddItem>(
         (event, emit) => emit(state..addDetail(event.parent, event.child)));
+    on<CopyWith>((event, emit) {
+      print('copied state');
+      emit(event.newState);
+    });
   }
 }
