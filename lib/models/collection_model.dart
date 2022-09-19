@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 enum ShowType { collection, series, season, episode }
 
-@immutable
+
 class Shows {
   const Shows({
     required this.name,

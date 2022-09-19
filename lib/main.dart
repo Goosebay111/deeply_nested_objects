@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (context, index) {
               return ListTile(
                 onTap: () {
-                  // setState(() {
+                   setState(() {});
                     if (state.allHierarchy(state)[index].showType ==
                         ShowType.collection) {
                       BlocProvider.of<CollectionBloc>(context).add(AddItem(
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [],
                           )));
                     }
-                  // });
+                   
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.series) {
                     BlocProvider.of<CollectionBloc>(context).add(AddItem(
