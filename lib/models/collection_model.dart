@@ -1,8 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 enum ShowType { collection, series, season, episode }
 
 class Shows {
-  Shows({required this.name, required this.showType, required this.children});
+  Shows({
+    required this.name,
+    required this.parent,
+    required this.children,
+    required this.showType,
+  });
   final String name;
+  final String? parent;
   final List<Shows> children;
   final ShowType showType;
 
@@ -14,6 +21,15 @@ class Shows {
     }
   }
 
+  List<String> getAllChildrenNames(Shows show) {
+    List<String> allChildren = [];
+    for (var element in show.children) {
+      allChildren.add(element.name);
+      allChildren.addAll(getAllChildrenNames(element));
+    }
+    return allChildren;
+  }
+
   List<Shows> allHierarchy(Shows node) {
     List<Shows> list = [];
     list.add(node);
@@ -21,6 +37,11 @@ class Shows {
       list.addAll(allHierarchy(child));
     }
     return list;
+  }
+
+  Shows getShow(String name, List<Shows> shows) {
+    
+    return shows.firstWhere((element) => element.name == name);
   }
 
   // return the children of a node that might be a series, season, or episode
@@ -35,6 +56,7 @@ class Shows {
   toJson() {
     return {
       'name': name,
+      'parent': parent,
       'showType': showType,
       'children': children.map((child) => child.toJson()).toList(),
     };
@@ -43,6 +65,7 @@ class Shows {
   factory Shows.fromJson(Map<String, dynamic> json) {
     return Shows(
         name: json['name'],
+        parent: json['parent'],
         showType: json['showType'],
         children: json['children']
             .map<Shows>((child) => Shows.fromJson(child))

@@ -7,48 +7,45 @@ class InitialState extends Shows {
   InitialState()
       : super(
           name: "Collection 1",
+          parent: null,
           showType: ShowType.collection,
           children: [],
         ) {
     // TODO: need to streamline this in order to use it for the bloc copyWith approach.
 
-    Shows series1 = Shows(
+    var series1 = Shows(
       name: "Series 1",
+      parent: "Collection 1",
       showType: ShowType.series,
       children: [],
     );
-    Shows season1 = Shows(
+    var season1 = Shows(
       name: "Season 1",
+      parent: 'Series 1',
       showType: ShowType.season,
       children: [],
     );
-    Shows season2 = Shows(
-      name: "Season 2",
-      showType: ShowType.season,
-      children: [],
-    );
-    Shows season3 = Shows(
-      name: "Season 3",
-      showType: ShowType.season,
-      children: [],
-    );
-    Shows episode1 = Shows(
+    var episode1 = Shows(
       name: "Episode 1",
+      parent: "Season 1",
       showType: ShowType.episode,
       children: [],
     );
-    Shows episode2 = Shows(
+    var episode2 = Shows(
       name: "Episode 2",
+      parent: "Season 1",
       showType: ShowType.episode,
       children: [],
     );
-    Shows episode3 = Shows(
+    var episode3 = Shows(
       name: "Episode 3",
+      parent: "Season 1",
       showType: ShowType.episode,
       children: [],
     );
-    Shows episode4 = Shows(
+    var episode4 = Shows(
       name: "Episode 4",
+      parent: "Season 1",
       showType: ShowType.episode,
       children: [],
     );
@@ -58,8 +55,6 @@ class InitialState extends Shows {
 
     super.addDetail(null, series1);
     super.addDetail(series1, season1);
-    super.addDetail(series1, season2);
-    super.addDetail(series1, season3);
     super.addDetail(season1, episode1);
     super.addDetail(season1, episode2);
     super.addDetail(season1, episode3);

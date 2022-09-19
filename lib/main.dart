@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Shows(
                             name:
                                 "Series ${state.getChildren(state.allHierarchy(state)[index]).length + 1}",
+                            parent: state.allHierarchy(state)[index].name,
                             showType: ShowType.series,
                             children: [],
                           )));
@@ -60,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Shows(
                           name:
                               'Season ${state.getChildren(state.allHierarchy(state)[index]).length + 1}',
+                          parent: state.allHierarchy(state)[index].name,
                           showType: ShowType.season,
                           children: [],
                         )));
@@ -71,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Shows(
                           name:
                               "Episode ${state.getChildren(state.allHierarchy(state)[index]).length + 1}",
+                          parent: state.allHierarchy(state)[index].name,
                           showType: ShowType.episode,
                           children: [],
                         )));
@@ -85,6 +88,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
+              // todo: the getShow will allow us to access the Shows that we need for the addDetail function.
+              // todo: this will be necessary for the copyWith approach when updating the state.
+              // todo: the approach is to use the parent name to get the parent show.
+              // todo: then use the parent show in conjunction with the addDetail method to add the new show.
+
+              var items = state.allHierarchy(state);
+              List<Shows> collection = items.map((e) => state.getShow(e.name, items)).toList();
+              //print(collection.length);
+              for (var element in items) {
+                var itemModel = state.getShow(element.name, items);
+                print(
+                    'parent: ${itemModel.parent}, name: ${itemModel.name}, type: ${itemModel.showType}');
+              }
               // var toJson = state.toJson();
               // var fromJson = Shows.fromJson(toJson);
             },
