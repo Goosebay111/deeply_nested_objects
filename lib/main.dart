@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (context, index) {
               return ListTile(
                 onTap: () {
-                  setState(() {
+                  // setState(() {
                     if (state.allHierarchy(state)[index].showType ==
                         ShowType.collection) {
                       BlocProvider.of<CollectionBloc>(context).add(AddItem(
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [],
                           )));
                     }
-                  });
+                  // });
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.series) {
                     BlocProvider.of<CollectionBloc>(context).add(AddItem(
@@ -93,13 +93,15 @@ class _MyHomePageState extends State<MyHomePage> {
               // todo: the approach is to use the parent name to get the parent show.
               // todo: then use the parent show in conjunction with the addDetail method to add the new show.
 
-              InitialState copiedState = copyState(state);
-              copiedState.allHierarchy(copiedState).forEach((element) {
-                print(element.name);
-              });
-             BlocProvider.of<CollectionBloc>(context).add(CopyWith(copiedState));
-              var toJson = state.toJson();
-              var fromJson = Shows.fromJson(toJson);
+              // InitialState copiedState = copyState(state);
+              // copiedState.allHierarchy(copiedState).forEach(
+              //   (element) {
+              //     print(element.name);
+              //   },
+              // );
+              //  BlocProvider.of<CollectionBloc>(context).add(CopyWith(copiedState));
+              //   var toJson = state.toJson();
+              //   var fromJson = Shows.fromJson(toJson);
             },
           ),
         );
@@ -108,26 +110,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-InitialState copyState(state) {
-  InitialState initState = InitialState();
-  List<Shows> items = state.allHierarchy(state);
-  for (var element in items) {
-    Shows itemModel = state.getShow(element.name, items);
-    if (element.parent == null) {
-      print('name: ${itemModel.name} has a null parent');
-    } else {
-      Shows parentModel = state.getShow(element.parent, items);
-      Shows childModel = Shows(
-        name: element.name,
-        parent: element.parent,
-        showType: element.showType,
-        children: [],
-      );
-      initState.addDetail(parentModel, childModel);
-    }
-  }
-  return initState;
-}
+// InitialState copyState(state) {
+//   InitialState initState = InitialState();
+//   List<Shows> items = state.allHierarchy(state);
+//   for (var element in items) {
+//     Shows itemModel = state.getShow(element.name, items);
+//     if (element.parent == null) {
+//       print('name: ${itemModel.name} has a null parent');
+//     } else {
+//       Shows parentModel = state.getShow(element.parent, items);
+//       Shows childModel = Shows(
+//         name: element.name,
+//         parent: element.parent,
+//         showType: element.showType,
+//         children: [],
+//       );
+//       initState.addDetail(parentModel, childModel);
+//     }
+//   }
+//   return initState;
+// }
 
 class TextWidget extends StatelessWidget {
   const TextWidget({super.key, required this.name});

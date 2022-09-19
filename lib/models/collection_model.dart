@@ -1,8 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
+import 'package:flutter/material.dart';
+
 enum ShowType { collection, series, season, episode }
 
+@immutable
 class Shows {
-  Shows({
+  const Shows({
     required this.name,
     required this.parent,
     required this.children,
@@ -70,5 +74,21 @@ class Shows {
         children: json['children']
             .map<Shows>((child) => Shows.fromJson(child))
             .toList());
+  }
+
+  
+
+  Shows copyWith({
+    String? name,
+    String? parent,
+    List<Shows>? children,
+    ShowType? showType,
+  }) {
+    return Shows(
+      name: name ?? this.name,
+      parent: parent ?? this.parent,
+      children: children ?? this.children,
+      showType: showType ?? this.showType,
+    );
   }
 }
