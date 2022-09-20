@@ -37,61 +37,48 @@ class MyHomePage extends StatelessWidget {
             itemCount: state.allHierarchy(state).length,
             itemBuilder: (context, index) {
               return ListTile(
-                onTap: () {
-                  if (state.allHierarchy(state)[index].showType ==
-                      ShowType.collection) {
-                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
-                        CollectionState(
-                          name: "Series ${(1000 + Random().nextInt(9000))}",
-                          showType: ShowType.series,
-                          children: [],
-                        ),
-                        index));
-                  }
-
-                  if (state.allHierarchy(state)[index].showType ==
-                      ShowType.series) {
-                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
-                        CollectionState(
-                          name: 'Season ${(1000 + Random().nextInt(9000))}',
-                          showType: ShowType.season,
-                          children: [],
-                        ),
-                        index));
-                  }
-                  if (state.allHierarchy(state)[index].showType ==
-                      ShowType.season) {
-                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
-                        CollectionState(
-                          name: "Episode ${(1000 + Random().nextInt(9000))}",
-                          showType: ShowType.episode,
-                          children: [],
-                        ),
-                        index));
-                  }
-                },
+                onTap: () => addToCollection(state, index, context),
                 leading: Card(
-                  child:
-                      TextWidget(name: state.allHierarchy(state)[index].name),
+                  child: Text(state.allHierarchy(state)[index].name),
                 ),
               );
             },
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
           ),
         );
       },
     );
   }
-}
 
-class TextWidget extends StatelessWidget {
-  const TextWidget({super.key, required this.name});
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(name);
+  void addToCollection(CollectionState state, int index, BuildContext context) {
+    if (state.allHierarchy(state)[index].showType == ShowType.collection) {
+      BlocProvider.of<CollectionBloc>(context).add(AddItem(
+        child: CollectionState(
+          name: "Series ${(1000 + Random().nextInt(9000))}",
+          showType: ShowType.series,
+          children: [],
+        ),
+        index: index,
+      ));
+    }
+    if (state.allHierarchy(state)[index].showType == ShowType.series) {
+      BlocProvider.of<CollectionBloc>(context).add(AddItem(
+        child: CollectionState(
+          name: 'Season ${(1000 + Random().nextInt(9000))}',
+          showType: ShowType.season,
+          children: [],
+        ),
+        index: index,
+      ));
+    }
+    if (state.allHierarchy(state)[index].showType == ShowType.season) {
+      BlocProvider.of<CollectionBloc>(context).add(AddItem(
+        child: CollectionState(
+          name: "Episode ${(1000 + Random().nextInt(9000))}",
+          showType: ShowType.episode,
+          children: [],
+        ),
+        index: index,
+      ));
+    }
   }
 }
