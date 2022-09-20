@@ -40,31 +40,34 @@ class MyHomePage extends StatelessWidget {
                 onTap: () {
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.collection) {
-                    BlocProvider.of<CollectionBloc>(context)
-                        .add(AddItem(CollectionState(
-                      name: "Series ${(1000 + Random().nextInt(9000))}",
-                      showType: ShowType.series,
-                      children: [],
-                    )));
+                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
+                        CollectionState(
+                          name: "Series ${(1000 + Random().nextInt(9000))}",
+                          showType: ShowType.series,
+                          children: [],
+                        ),
+                        index));
                   }
 
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.series) {
-                    BlocProvider.of<CollectionBloc>(context)
-                        .add(AddItem(CollectionState(
-                      name: 'Season ${(1000 + Random().nextInt(9000))}',
-                      showType: ShowType.season,
-                      children: [],
-                    )));
+                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
+                        CollectionState(
+                          name: 'Season ${(1000 + Random().nextInt(9000))}',
+                          showType: ShowType.season,
+                          children: [],
+                        ),
+                        index));
                   }
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.season) {
-                    BlocProvider.of<CollectionBloc>(context)
-                        .add(AddItem(CollectionState(
-                      name: "Episode ${(1000 + Random().nextInt(9000))}",
-                      showType: ShowType.episode,
-                      children: [],
-                    )));
+                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
+                        CollectionState(
+                          name: "Episode ${(1000 + Random().nextInt(9000))}",
+                          showType: ShowType.episode,
+                          children: [],
+                        ),
+                        index));
                   }
                 },
                 leading: Card(
