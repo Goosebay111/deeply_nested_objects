@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:deeply_nested_objects/blocs/collection_bloc.dart';
-import 'package:deeply_nested_objects/models/collection_model.dart';
+import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
+import 'package:deeply_nested_objects/bloc/collection_event.dart';
+import 'package:deeply_nested_objects/bloc/collection_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +27,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CollectionBloc, Shows>(
+    return BlocBuilder<CollectionBloc, CollectionState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -39,37 +40,31 @@ class MyHomePage extends StatelessWidget {
                 onTap: () {
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.collection) {
-                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
-                        null,
-                        Shows(
-                          name:
-                              "Series ${(1000 + Random().nextInt(9000))}",
-                          showType: ShowType.series,
-                          children: [],
-                        )));
+                    BlocProvider.of<CollectionBloc>(context)
+                        .add(AddItem(CollectionState(
+                      name: "Series ${(1000 + Random().nextInt(9000))}",
+                      showType: ShowType.series,
+                      children: [],
+                    )));
                   }
 
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.series) {
-                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
-                        state.allHierarchy(state)[index],
-                        Shows(
-                          name:
-                              'Season ${(1000 + Random().nextInt(9000))}',
-                          showType: ShowType.season,
-                          children: [],
-                        )));
+                    BlocProvider.of<CollectionBloc>(context)
+                        .add(AddItem(CollectionState(
+                      name: 'Season ${(1000 + Random().nextInt(9000))}',
+                      showType: ShowType.season,
+                      children: [],
+                    )));
                   }
                   if (state.allHierarchy(state)[index].showType ==
                       ShowType.season) {
-                    BlocProvider.of<CollectionBloc>(context).add(AddItem(
-                        state.allHierarchy(state)[index],
-                        Shows(
-                          name:
-                              "Episode ${(1000 + Random().nextInt(9000))}",
-                          showType: ShowType.episode,
-                          children: [],
-                        )));
+                    BlocProvider.of<CollectionBloc>(context)
+                        .add(AddItem(CollectionState(
+                      name: "Episode ${(1000 + Random().nextInt(9000))}",
+                      showType: ShowType.episode,
+                      children: [],
+                    )));
                   }
                 },
                 leading: Card(

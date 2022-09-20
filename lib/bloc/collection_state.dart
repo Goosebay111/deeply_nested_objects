@@ -1,57 +1,41 @@
-enum ShowType { collection, season, series, episode }
+enum ShowType { collection, series, season, episode }
 
-abstract class CollectionState {}
+class CollectionState {
+  const CollectionState({
+    required this.name,
+    required this.children,
+    required this.showType,
+  });
+  final String name;
+  final List<CollectionState> children;
+  final ShowType showType;
 
-class BaseState extends CollectionState {
-  BaseState(
-      {required this.counter, required this.children, required this.index});
-  int counter;
-  List<BaseState> children;
-
-  int index;
-
-  // add to children
-  List<BaseState> addChild(BaseState series) {
-    var result = children;
-    result.add(series);
-    return result;
+  factory CollectionState.initial() {
+    return const CollectionState(
+      name: "Collection 1",
+      showType: ShowType.collection,
+      children: [],
+    );
   }
 
-
-  addChildToChild(int index, BaseState child) {
-    var result = children;
-    result[index].children.add(child);
-    return result;
-  }
-
-  //add child to child to child
-  addChildToChildToChild(int index, int index2, BaseState child) {
-    var result = children;
-    result[index].children[index2].children.add(child);
-    return result;
-  }
-
-  List<int> get allCounters {
-    List<int> allCounters = [];
-    allCounters.add(counter);
-    for (var i = 0; i < children.length; i++) {
-      allCounters.addAll(children[i].allCounters);
+  List<CollectionState> allHierarchy(CollectionState node) {
+    List<CollectionState> list = [];
+    list.add(node);
+    for (CollectionState child in node.children) {
+      list.addAll(allHierarchy(child));
     }
-    return allCounters;
+    return list;
   }
-}
 
-class CollectionInitial extends BaseState {
-  CollectionInitial(ShowType showType)
-      : super(
-          index: 0,
-          counter: 0,
-          children: [
-            BaseState(
-              index: 0,
-              counter: 0,
-              children: [],
-            )
-          ],
-        );
+  CollectionState copyWith({
+    String? name,
+    List<CollectionState>? children,
+    ShowType? showType,
+  }) {
+    return CollectionState(
+      name: name ?? this.name,
+      children: children ?? this.children,
+      showType: showType ?? this.showType,
+    );
+  }
 }

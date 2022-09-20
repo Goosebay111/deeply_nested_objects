@@ -1,19 +1,13 @@
-abstract class CollectionEvent {}
+import 'package:deeply_nested_objects/bloc/collection_state.dart';
 
-class AddSeries extends CollectionEvent {
-  AddSeries({required this.index});
-  final int index;
+abstract class CollectionEvents {}
+
+class AddItem extends CollectionEvents {
+  AddItem(this.child);
+  final CollectionState child;
 }
 
-class AddSeason extends CollectionEvent {
-  AddSeason({required this.index});
-  final int index;
+class CopyWith extends CollectionEvents {
+  CopyWith(this.newState);
+  final CollectionState newState;
 }
-
-class AddEpisode extends CollectionEvent {
-  AddEpisode({required this.index, required this.index2});
-  final int index;
-  final int index2;
-}
-
-
