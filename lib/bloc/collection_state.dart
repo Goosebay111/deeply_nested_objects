@@ -12,19 +12,23 @@ class CollectionState {
 
   factory CollectionState.initial() {
     return const CollectionState(
-      name: "Collection 1",
+      name: "Collection",
       showType: ShowType.collection,
       children: [],
     );
   }
 
-  List<CollectionState> allHierarchy(CollectionState node) {
-    List<CollectionState> list = [];
-    list.add(node);
+  List<CollectionState> allHierarchies(CollectionState node) {
+    // empty list to store the result
+    List<CollectionState> result = [];
+    // add the current node
+    result.add(node);
+    // add the children too
     for (CollectionState child in node.children) {
-      list.addAll(allHierarchy(child));
+      // composite design pattern seek and find
+      result.addAll(allHierarchies(child));
     }
-    return list;
+    return result;
   }
 
   CollectionState copyWith({

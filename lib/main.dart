@@ -34,12 +34,12 @@ class MyHomePage extends StatelessWidget {
             title: const Text('Flutter Demo Home Page'),
           ),
           body: ListView.builder(
-            itemCount: state.allHierarchy(state).length,
+            itemCount: state.allHierarchies(state).length,
             itemBuilder: (context, index) {
               return ListTile(
                 onTap: () => addToCollection(state, index, context),
                 leading: Card(
-                  child: Text(state.allHierarchy(state)[index].name),
+                  child: Text(state.allHierarchies(state)[index].name),
                 ),
               );
             },
@@ -50,8 +50,8 @@ class MyHomePage extends StatelessWidget {
   }
 
   void addToCollection(CollectionState state, int index, BuildContext context) {
-    if (state.allHierarchy(state)[index].showType == ShowType.collection) {
-      BlocProvider.of<CollectionBloc>(context).add(AddItem(
+    if (state.allHierarchies(state)[index].showType == ShowType.collection) {
+      BlocProvider.of<CollectionBloc>(context).add(AddInfo(
         child: CollectionState(
           name: "Series ${(1000 + Random().nextInt(9000))}",
           showType: ShowType.series,
@@ -60,8 +60,8 @@ class MyHomePage extends StatelessWidget {
         index: index,
       ));
     }
-    if (state.allHierarchy(state)[index].showType == ShowType.series) {
-      BlocProvider.of<CollectionBloc>(context).add(AddItem(
+    if (state.allHierarchies(state)[index].showType == ShowType.series) {
+      BlocProvider.of<CollectionBloc>(context).add(AddInfo(
         child: CollectionState(
           name: 'Season ${(1000 + Random().nextInt(9000))}',
           showType: ShowType.season,
@@ -70,8 +70,8 @@ class MyHomePage extends StatelessWidget {
         index: index,
       ));
     }
-    if (state.allHierarchy(state)[index].showType == ShowType.season) {
-      BlocProvider.of<CollectionBloc>(context).add(AddItem(
+    if (state.allHierarchies(state)[index].showType == ShowType.season) {
+      BlocProvider.of<CollectionBloc>(context).add(AddInfo(
         child: CollectionState(
           name: "Episode ${(1000 + Random().nextInt(9000))}",
           showType: ShowType.episode,
