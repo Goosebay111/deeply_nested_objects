@@ -1,4 +1,4 @@
- import 'package:deeply_nested_objects/bloc/add_collection_logic.dart';
+import 'package:deeply_nested_objects/bloc/add_to_collection_logic.dart';
 import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection_state.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,8 @@ class MyHomePage extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(left: distance),
                 child: ListTile(
-                  onTap: () => addToCollection(nodes.showType, index, context),
+                  onTap: () =>
+                      addToCollectionLogic(nodes.showType, index, nodes.children.length + 1, context),
                   leading: Card(
                     child: Text(nodes.name, style: TextStyle(color: textColor)),
                   ),
