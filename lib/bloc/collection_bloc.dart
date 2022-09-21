@@ -10,14 +10,9 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       }
       if (event.child.showType == ShowType.season ||
           event.child.showType == ShowType.episode) {
-      //TODO: Here is the problem. This code does not work properly when I extend the CollectionState class to Equatable.
-        // get the list of all nodes
         List<CollectionState> list = state.getAllNodes(state);
-        // find the parent node while still in the list
         CollectionState parent = list[event.index];
-        // add the child to the parent
         parent.children.add(event.child);
-        // update the state
         emit(state.copyWith(children: [...state.children]));
       }
     });

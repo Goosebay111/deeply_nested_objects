@@ -43,4 +43,5 @@ class CollectionState {
       showType: showType ?? this.showType,
     );
   }
+
 }
