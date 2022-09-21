@@ -1,4 +1,4 @@
-import 'package:deeply_nested_objects/bloc/add_collection_logic.dart';
+ import 'package:deeply_nested_objects/bloc/add_collection_logic.dart';
 import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection_state.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +35,15 @@ class MyHomePage extends StatelessWidget {
             itemCount: state.getAllNodes(state).length,
             itemBuilder: (context, index) {
               var nodes = state.getAllNodes(state)[index];
-              return ListTile(
-                onTap: () => addToCollection(nodes.showType, index, context),
-                leading: Card(
-                  child: Text(nodes.name),
+              Color textColor = getColor(nodes);
+              double distance = getPaddingDistance(nodes);
+              return Padding(
+                padding: EdgeInsets.only(left: distance),
+                child: ListTile(
+                  onTap: () => addToCollection(nodes.showType, index, context),
+                  leading: Card(
+                    child: Text(nodes.name, style: TextStyle(color: textColor)),
+                  ),
                 ),
               );
             },
@@ -46,5 +51,27 @@ class MyHomePage extends StatelessWidget {
         );
       },
     );
+  }
+
+  double getPaddingDistance(CollectionState nodes) {
+    double distance = nodes.showType == ShowType.collection
+        ? 0.0
+        : nodes.showType == ShowType.series
+            ? 20
+            : nodes.showType == ShowType.season
+                ? 40
+                : 60;
+    return distance;
+  }
+
+  Color getColor(CollectionState nodes) {
+    Color textColor = nodes.showType == ShowType.collection
+        ? Colors.black87
+        : nodes.showType == ShowType.series
+            ? Colors.blue
+            : nodes.showType == ShowType.season
+                ? Colors.orange
+                : Colors.green;
+    return textColor;
   }
 }
