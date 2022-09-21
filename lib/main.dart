@@ -40,8 +40,8 @@ class MyHomePage extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(left: distance),
                 child: ListTile(
-                  onTap: () =>
-                      addToCollectionLogic(nodes.showType, index, nodes.children.length + 1, context),
+                  onTap: () => addToCollectionLogic(nodes.showType, index,
+                      nodes.children.length + 1, context),
                   leading: Card(
                     child: Text(nodes.name, style: TextStyle(color: textColor)),
                   ),
@@ -55,24 +55,28 @@ class MyHomePage extends StatelessWidget {
   }
 
   double getPaddingDistance(CollectionState nodes) {
-    double distance = nodes.showType == ShowType.collection
-        ? 0.0
-        : nodes.showType == ShowType.series
-            ? 20
-            : nodes.showType == ShowType.season
-                ? 40
-                : 60;
-    return distance;
+    switch (nodes.showType) {
+      case ShowType.collection:
+        return 0;
+      case ShowType.series:
+        return 20;
+      case ShowType.season:
+        return 40;
+      case ShowType.episode:
+        return 60;
+    }
   }
 
   Color getColor(CollectionState nodes) {
-    Color textColor = nodes.showType == ShowType.collection
-        ? Colors.black87
-        : nodes.showType == ShowType.series
-            ? Colors.blue
-            : nodes.showType == ShowType.season
-                ? Colors.orange
-                : Colors.green;
-    return textColor;
+    switch (nodes.showType) {
+      case ShowType.collection:
+        return Colors.black;
+      case ShowType.series:
+        return Colors.blue;
+      case ShowType.season:
+        return Colors.green;
+      case ShowType.episode:
+        return Colors.red;
+    }
   }
 }
