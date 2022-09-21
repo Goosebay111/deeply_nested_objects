@@ -10,10 +10,11 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       }
       if (event.child.showType == ShowType.season ||
           event.child.showType == ShowType.episode) {
-        List<CollectionState> list = state.getAllNodes(state);
+        
+        List<CollectionState> list = List.from(state.getAllNodes(state));
         CollectionState parent = list[event.index];
         parent.children.add(event.child);
-        emit(state.copyWith(children: [...state.children]));
+        emit(state.copyWith(children: [...list[0].children]));
       }
     });
   }

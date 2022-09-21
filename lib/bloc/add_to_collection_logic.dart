@@ -6,25 +6,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void addToCollectionLogic(
     ShowType showType, int index, int count, BuildContext context) {
-  void passToBloc(String name, ShowType showType) =>
-      BlocProvider.of<CollectionBloc>(context).add(
-        AddInfo(
-          index: index,
-          child: CollectionState(name: name, showType: showType, children: []),
-        ),
-      );
-
   switch (showType) {
     case ShowType.collection:
-      passToBloc('Series $count', ShowType.series);
+      passToBloc('Series $count', index, ShowType.series, context);
       break;
     case ShowType.series:
-      passToBloc('Season $count', ShowType.season);
+      passToBloc('Season $count', index, ShowType.season, context);
       break;
     case ShowType.season:
-      passToBloc('Episode $count', ShowType.episode);
+      passToBloc('Episode $count', index, ShowType.episode, context);
       break;
     case ShowType.episode:
       break;
   }
+}
+
+void passToBloc(name, index, showType, context) {
+  BlocProvider.of<CollectionBloc>(context).add(
+    AddInfo(
+      index: index,
+      child: CollectionState(
+        name: name,
+        showType: showType,
+        children: [],
+      ),
+    ),
+  );
 }
