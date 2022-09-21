@@ -34,12 +34,12 @@ class MyHomePage extends StatelessWidget {
             title: const Text('Flutter Demo Home Page'),
           ),
           body: ListView.builder(
-            itemCount: state.allHierarchies(state).length,
+            itemCount: state.getAllNodes(state).length,
             itemBuilder: (context, index) {
               return ListTile(
                 onTap: () => addToCollection(state, index, context),
                 leading: Card(
-                  child: Text(state.allHierarchies(state)[index].name),
+                  child: Text(state.getAllNodes(state)[index].name),
                 ),
               );
             },
@@ -50,7 +50,7 @@ class MyHomePage extends StatelessWidget {
   }
 
   void addToCollection(CollectionState state, int index, BuildContext context) {
-    if (state.allHierarchies(state)[index].showType == ShowType.collection) {
+    if (state.getAllNodes(state)[index].showType == ShowType.collection) {
       BlocProvider.of<CollectionBloc>(context).add(AddInfo(
         child: CollectionState(
           name: "Series ${(1000 + Random().nextInt(9000))}",
@@ -60,7 +60,7 @@ class MyHomePage extends StatelessWidget {
         index: index,
       ));
     }
-    if (state.allHierarchies(state)[index].showType == ShowType.series) {
+    if (state.getAllNodes(state)[index].showType == ShowType.series) {
       BlocProvider.of<CollectionBloc>(context).add(AddInfo(
         child: CollectionState(
           name: 'Season ${(1000 + Random().nextInt(9000))}',
@@ -70,7 +70,7 @@ class MyHomePage extends StatelessWidget {
         index: index,
       ));
     }
-    if (state.allHierarchies(state)[index].showType == ShowType.season) {
+    if (state.getAllNodes(state)[index].showType == ShowType.season) {
       BlocProvider.of<CollectionBloc>(context).add(AddInfo(
         child: CollectionState(
           name: "Episode ${(1000 + Random().nextInt(9000))}",

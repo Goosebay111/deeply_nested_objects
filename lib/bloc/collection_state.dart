@@ -1,5 +1,6 @@
 enum ShowType { collection, series, season, episode }
 
+// 1) where should be Equatable
 class CollectionState {
   const CollectionState({
     required this.name,
@@ -18,7 +19,7 @@ class CollectionState {
     );
   }
 
-  List<CollectionState> allHierarchies(CollectionState node) {
+  List<CollectionState> getAllNodes(CollectionState node) {
     // empty list to store the result
     List<CollectionState> result = [];
     // add the current node
@@ -26,7 +27,7 @@ class CollectionState {
     // add the children too
     for (CollectionState child in node.children) {
       // composite design pattern seek and find
-      result.addAll(allHierarchies(child));
+      result.addAll(getAllNodes(child));
     }
     return result;
   }
