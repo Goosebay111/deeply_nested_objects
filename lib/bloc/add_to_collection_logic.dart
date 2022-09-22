@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection_event.dart';
@@ -31,7 +30,7 @@ void addToTopLayer(name, index, showType, context) {
         name: name,
         showType: showType,
         children: [],
-        heartbeats: 0
+        
       ),
     ),
   );
@@ -45,7 +44,7 @@ void addToNodes(name, index, showType, context) {
         name: name,
         showType: showType,
         children: [],
-        heartbeats: 0
+        
       ),
     ),
   );

@@ -1,25 +1,20 @@
-import 'package:equatable/equatable.dart';
-
 enum ShowType { collection, series, season, episode }
 
-class CollectionState extends Equatable {
+class CollectionState {
   const CollectionState({
     required this.name,
     required this.children,
     required this.showType,
-    required this.heartbeats, // hack to get Equatable to work
   });
   final String name;
   final List<CollectionState> children;
   final ShowType showType;
-  final int heartbeats;
 
   factory CollectionState.initial() {
     return const CollectionState(
       name: "Collection",
       showType: ShowType.collection,
       children: [],
-      heartbeats: 0,
     );
   }
 
@@ -46,10 +41,9 @@ class CollectionState extends Equatable {
       name: name ?? this.name,
       children: children ?? this.children,
       showType: showType ?? this.showType,
-      heartbeats: heartbeats + 1,
+      
     );
   }
 
-  @override
-  List<Object> get props => [name, children, showType, heartbeats];
+ 
 }
