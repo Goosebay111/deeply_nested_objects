@@ -24,13 +24,14 @@ class CollectionState extends Equatable {
   }
 
   List<CollectionState> getAllNodes(CollectionState node) {
-    // empty list to store the result
+    // create an empty list to store the result
     List<CollectionState> result = [];
     // add the current node
     result.add(node);
     // add the children too
     for (CollectionState child in node.children) {
       // composite design pattern seek and find
+      // goes down the rabbit hole until it finds the bottom
       result.addAll(getAllNodes(child));
     }
     return result;
