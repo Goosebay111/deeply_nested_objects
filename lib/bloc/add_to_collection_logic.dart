@@ -1,4 +1,3 @@
-
 import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection_state.dart';
@@ -30,7 +29,6 @@ void addToTopLayer(name, index, showType, context) {
         name: name,
         showType: showType,
         children: [],
-        
       ),
     ),
   );
@@ -44,7 +42,6 @@ void addToNodes(name, index, showType, context) {
         name: name,
         showType: showType,
         children: [],
-        
       ),
     ),
   );

@@ -41,9 +41,6 @@ class CollectionState {
       name: name ?? this.name,
       children: children ?? this.children,
       showType: showType ?? this.showType,
-      
     );
   }
-
- 
 }
