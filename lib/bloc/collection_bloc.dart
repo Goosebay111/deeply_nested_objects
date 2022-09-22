@@ -18,7 +18,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
         /// add to the children of the parent, which changes the nested state of the data.
         parent.children.add(event.child);
 
-        /// adds the updated nested data to the empty copyWith object.
+        /// adds the updated nested data to the empty children list of the copyWith object.
         emit(state.copyWith(children: []..addAll(state.children)));
         /// OR
         ///emit(state.copyWith(children: [...state.children]));
