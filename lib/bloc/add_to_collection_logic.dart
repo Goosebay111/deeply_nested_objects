@@ -10,13 +10,13 @@ void addToCollectionLogic(
     ShowType showType, int index, int count, BuildContext context) {
   switch (showType) {
     case ShowType.collection:
-      addToTopLayer('Series $count', index, ShowType.series, context);
+      addToTopLayer('Series ${count + 1}', index, ShowType.series, context);
       break;
     case ShowType.series:
-      addToNodes('Season $count', index, ShowType.season, context);
+      addToNodes('Season ${count + 1}', index, ShowType.season, context);
       break;
     case ShowType.season:
-      addToNodes('Episode $count', index, ShowType.episode, context);
+      addToNodes('Episode ${count + 1}', index, ShowType.episode, context);
       break;
     case ShowType.episode:
       break;

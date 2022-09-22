@@ -41,7 +41,7 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.only(left: distance),
                 child: ListTile(
                   onTap: () => addToCollectionLogic(nodes.showType, index,
-                      nodes.children.length + 1, context),
+                      nodes.children.length, context),
                   leading: Card(
                     child: Text(nodes.name, style: TextStyle(color: textColor)),
                   ),

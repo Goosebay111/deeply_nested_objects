@@ -7,7 +7,7 @@ class CollectionState extends Equatable {
     required this.name,
     required this.children,
     required this.showType,
-    required this.heartbeats, // hack
+    required this.heartbeats, // hack to get Equatable to work
   });
   final String name;
   final List<CollectionState> children;
