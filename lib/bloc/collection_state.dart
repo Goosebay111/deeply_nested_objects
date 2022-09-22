@@ -1,23 +1,27 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 
 enum ShowType { collection, series, season, episode }
 
 // 1) where should be Equatable
-class CollectionState {
+class CollectionState extends Equatable {
   const CollectionState({
     required this.name,
     required this.children,
     required this.showType,
+    required this.heartbeats, // hack
   });
   final String name;
   final List<CollectionState> children;
   final ShowType showType;
+  final int heartbeats;
 
   factory CollectionState.initial() {
     return const CollectionState(
       name: "Collection",
       showType: ShowType.collection,
       children: [],
+      heartbeats: 0,
     );
   }
 
@@ -43,6 +47,10 @@ class CollectionState {
       name: name ?? this.name,
       children: children ?? this.children,
       showType: showType ?? this.showType,
+      heartbeats: heartbeats + 1,
     );
   }
+
+  @override
+  List<Object> get props => [name, children, showType, heartbeats];
 }

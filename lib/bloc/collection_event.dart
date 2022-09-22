@@ -6,8 +6,15 @@ abstract class CollectionEvents extends Equatable {
   List<Object> get props => [];
 }
 
-class AddInfo extends CollectionEvents {
-  AddInfo({required this.index, required this.child});
+class AddToTopLayer extends CollectionEvents {
+  AddToTopLayer({required this.index, required this.child});
+
+  final int index;
+  final CollectionState child;
+}
+
+class AddToNode extends CollectionEvents {
+  AddToNode({required this.index, required this.child});
 
   final int index;
   final CollectionState child;

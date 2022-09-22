@@ -4,18 +4,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
   CollectionBloc() : super(CollectionState.initial()) {
-    on<AddInfo>((event, emit) {
-      if (event.child.showType == ShowType.series) {
-        emit(state.copyWith(children: [...state.children, event.child]));
-      }
-      if (event.child.showType == ShowType.season ||
-          event.child.showType == ShowType.episode) {
-        
-        List<CollectionState> list = List.from(state.getAllNodes(state));
+    on<AddToTopLayer>((event, emit) =>
+        emit(state.copyWith(children: [...state.children, event.child])));
+
+    on<AddToNode>(
+      (event, emit) {
+        /// makes a copy of all of the nodes contained in the state.
+        List<CollectionState> list = state.getAllNodes(state);
+
+        /// Expose the parent node.
         CollectionState parent = list[event.index];
+
+        /// add to the children of the parent, which changes the nested state of the data.
         parent.children.add(event.child);
-        emit(state.copyWith(children: [...list[0].children]));
-      }
-    });
+
+        /// adds the updated data to the state.
+        emit(state.copyWith(children: []..addAll(state.children)));
+
+        /// emit(state.copyWith(children: [...list[0].children]));
+      },
+    );
   }
 }
