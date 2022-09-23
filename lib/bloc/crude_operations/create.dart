@@ -5,7 +5,7 @@ import 'package:deeply_nested_objects/naming_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void addToCollectionLogic({
+void createNode({
   required CollectionState parentNode,
   required ShowType showType,
   required BuildContext context,
@@ -32,20 +32,53 @@ void addToCollectionLogic({
           context: context);
       break;
     case ShowType.episode:
+      navigateToNextPage(parentNode: parentNode, context: context);
       break;
   }
 }
 
-void addToTopLayer({required name, required showType, required context}) async {
+void navigateToNextPage({
+  required CollectionState parentNode,
+  required BuildContext context,
+}) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: Text(parentNode.name),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: Text(parentNode.name)),
+            Center(
+              child: ElevatedButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialog(
+                    title: Text('You pressed the button'),
+                  ),
+                ),
+                child: const Text('Message'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
+void addToTopLayer({required name, required showType, required context}) async {
   String? newName = await namingDialogBox(
-            context: context,
-            currentText: name,
-            newRequest: 'Rename Collection',
-          );
+    context: context,
+    currentText: name,
+    newRequest: 'Rename Collection',
+  );
 
   BlocProvider.of<CollectionBloc>(context).add(
-    AddToTopLayer(
+    AddToTopLayerData(
       newChild: CollectionState(
         name: newName ?? name,
         showType: showType,
@@ -60,16 +93,15 @@ void addToNodes({
   required parent,
   required showType,
   required context,
-})  async {
-
+}) async {
   String? newName = await namingDialogBox(
-            context: context,
-            currentText: name,
-            newRequest: 'Rename Collection',
-          );
+    context: context,
+    currentText: name,
+    newRequest: 'Rename Collection',
+  );
 
   BlocProvider.of<CollectionBloc>(context).add(
-    AddToNode(
+    AddToDeeplyNestedData(
       newChild: CollectionState(
         name: newName ?? name,
         showType: showType,
@@ -79,4 +111,3 @@ void addToNodes({
     ),
   );
 }
-

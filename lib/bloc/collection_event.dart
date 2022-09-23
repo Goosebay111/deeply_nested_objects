@@ -6,15 +6,15 @@ abstract class CollectionEvents extends Equatable {
   List<Object> get props => [];
 }
 
-class AddToTopLayer extends CollectionEvents {
-  AddToTopLayer({
+class AddToTopLayerData extends CollectionEvents {
+  AddToTopLayerData({
     required this.newChild,
   });
   final CollectionState newChild;
 }
 
-class AddToNode extends CollectionEvents {
-  AddToNode({
+class AddToDeeplyNestedData extends CollectionEvents {
+  AddToDeeplyNestedData({
     required this.newChild,
     required this.parent,
   });
@@ -23,12 +23,20 @@ class AddToNode extends CollectionEvents {
   final CollectionState parent;
 }
 
-class RenameNode extends CollectionEvents {
-  RenameNode({
+class UpdateNode extends CollectionEvents {
+  UpdateNode({
     required this.newName,
     required this.parent,
   });
 
   final CollectionState parent;
   final String newName;
+}
+
+class DeleteNode extends CollectionEvents {
+  DeleteNode({
+    required this.parent,
+  });
+
+  final CollectionState parent;
 }

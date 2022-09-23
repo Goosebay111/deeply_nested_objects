@@ -1,7 +1,9 @@
-import 'package:deeply_nested_objects/bloc/add_to_collection_logic.dart';
 import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection_state.dart';
-import 'package:deeply_nested_objects/bloc/crud_operations.dart';
+import 'package:deeply_nested_objects/bloc/crude_operations/delete.dart';
+import 'package:deeply_nested_objects/bloc/crude_operations/read.dart';
+import 'package:deeply_nested_objects/bloc/crude_operations/update.dart';
+import 'package:deeply_nested_objects/bloc/crude_operations/create.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,15 +35,15 @@ class MyHomePage extends StatelessWidget {
             title: const Text('Deeply nested data and Bloc 8.0.0+'),
           ),
           body: ListView.builder(
-            itemCount: state.getAllNodesOfParent(parentNode: state).length,
+            itemCount: getAllNodesOfParent(parentNode: state).length,
             itemBuilder: (context, index) {
-              var nodes = state.getAllNodesOfParent(parentNode: state)[index];
+              var nodes = getAllNodesOfParent(parentNode: state)[index];
               Color textColor = getColor(nodes);
               double distance = getPaddingDistance(nodes);
               return Padding(
                 padding: EdgeInsets.only(left: distance),
                 child: ListTile(
-                  onTap: () => addToCollectionLogic(
+                  onTap: () => createNode(
                     parentNode: nodes,
                     showType: nodes.showType,
                     context: context,
@@ -54,6 +56,14 @@ class MyHomePage extends StatelessWidget {
                     child: Text(
                       nodes.name,
                       style: TextStyle(color: textColor),
+                    ),
+                  ),
+                  trailing: // icon button
+                      IconButton(
+                    icon: const Icon(Icons.remove),
+                    onPressed: () => deleteNode(
+                      parent: nodes,
+                      context: context,
                     ),
                   ),
                 ),

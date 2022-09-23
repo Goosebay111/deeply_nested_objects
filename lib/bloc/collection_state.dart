@@ -18,17 +18,6 @@ class CollectionState {
     );
   }
 
-  List<CollectionState> getAllNodesOfParent(
-      {required CollectionState parentNode}) {
-    List<CollectionState> result = [];
-    result.add(parentNode);
-
-    for (CollectionState node in parentNode.children) {
-      result.addAll(getAllNodesOfParent(parentNode: node));
-    }
-    return result;
-  }
-
   CollectionState copyWith({
     String? name,
     List<CollectionState>? children,
