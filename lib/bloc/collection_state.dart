@@ -18,16 +18,16 @@ class CollectionState {
     );
   }
 
-  List<CollectionState> getAllNodes(CollectionState node) {
+  List<CollectionState> getAllNodesOfParent({required CollectionState parent}) {
     // create an empty list to store the result
     List<CollectionState> result = [];
     // add the current node
-    result.add(node);
+    result.add(parent);
     // add the children too
-    for (CollectionState child in node.children) {
+    for (CollectionState child in parent.children) {
       // composite design pattern seek and find
       // goes down the rabbit hole until it finds the bottom
-      result.addAll(getAllNodes(child));
+      result.addAll(getAllNodesOfParent(parent: child));
     }
     return result;
   }

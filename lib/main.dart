@@ -32,16 +32,16 @@ class MyHomePage extends StatelessWidget {
             title: const Text('Deeply nested data and Bloc 8.0.0+'),
           ),
           body: ListView.builder(
-            itemCount: state.getAllNodes(state).length,
+            itemCount: state.getAllNodesOfParent(parent: state).length,
             itemBuilder: (context, index) {
-              var nodes = state.getAllNodes(state)[index];
+              var nodes = state.getAllNodesOfParent(parent: state)[index];
               Color textColor = getColor(nodes);
               double distance = getPaddingDistance(nodes);
               return Padding(
                 padding: EdgeInsets.only(left: distance),
                 child: ListTile(
                   onTap: () => addToCollectionLogic(
-                    parent: nodes,
+                    parentNode: nodes,
                     showType: nodes.showType,
                     context: context,
                   ),

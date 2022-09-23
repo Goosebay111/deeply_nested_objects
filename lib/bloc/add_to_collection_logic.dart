@@ -5,28 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void addToCollectionLogic({
-  required CollectionState parent,
+  required CollectionState parentNode,
   required ShowType showType,
   required BuildContext context,
 }) {
   switch (showType) {
     case ShowType.collection:
       addToTopLayer(
-          name: 'Series ${parent.children.length + 1}',
+          name: 'Series ${parentNode.children.length + 1}',
           showType: ShowType.series,
           context: context);
       break;
     case ShowType.series:
       addToNodes(
-          parent: parent,
-          name: 'Season ${parent.children.length + 1}',
+          parent: parentNode,
+          name: 'Season ${parentNode.children.length + 1}',
           showType: ShowType.season,
           context: context);
       break;
     case ShowType.season:
       addToNodes(
-          parent: parent,
-          name: 'Episode ${parent.children.length + 1}',
+          parent: parentNode,
+          name: 'Episode ${parentNode.children.length + 1}',
           showType: ShowType.episode,
           context: context);
       break;
