@@ -32,9 +32,9 @@ class MyHomePage extends StatelessWidget {
             title: const Text('Deeply nested data and Bloc 8.0.0+'),
           ),
           body: ListView.builder(
-            itemCount: state.getAllNodesOfParent(parent: state).length,
+            itemCount: state.getAllNodesOfParent(parentNode: state).length,
             itemBuilder: (context, index) {
-              var nodes = state.getAllNodesOfParent(parent: state)[index];
+              var nodes = state.getAllNodesOfParent(parentNode: state)[index];
               Color textColor = getColor(nodes);
               double distance = getPaddingDistance(nodes);
               return Padding(
