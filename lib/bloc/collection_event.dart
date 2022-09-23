@@ -8,17 +8,17 @@ abstract class CollectionEvents extends Equatable {
 
 class AddToTopLayer extends CollectionEvents {
   AddToTopLayer({
-    required this.child,
+    required this.newChild,
   });
-  final CollectionState child;
+  final CollectionState newChild;
 }
 
 class AddToNode extends CollectionEvents {
   AddToNode({
-    required this.child,
+    required this.newChild,
     required this.parent,
   });
 
-  final CollectionState child;
+  final CollectionState newChild;
   final CollectionState parent;
 }

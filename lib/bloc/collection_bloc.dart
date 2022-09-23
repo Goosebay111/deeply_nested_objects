@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
   CollectionBloc() : super(CollectionState.initial()) {
     on<AddToTopLayer>((event, emit) =>
-        emit(state.copyWith(children: [...state.children, event.child])));
+        emit(state.copyWith(children: [...state.children, event.newChild])));
 
     on<AddToNode>(
       (event, emit) {
         final CollectionState parent = event.parent;
 
-        parent.children.add(event.child);
+        parent.children.add(event.newChild);
 
         emit(state.copyWith(children: [...state.children]));
       },

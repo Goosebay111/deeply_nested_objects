@@ -8,9 +8,7 @@ void addToCollectionLogic({
   required CollectionState parent,
   required ShowType showType,
   required BuildContext context,
-}
-  
-) {
+}) {
   switch (showType) {
     case ShowType.collection:
       addToTopLayer(
@@ -40,7 +38,7 @@ void addToCollectionLogic({
 void addToTopLayer({required name, required showType, required context}) {
   BlocProvider.of<CollectionBloc>(context).add(
     AddToTopLayer(
-      child: CollectionState(
+      newChild: CollectionState(
         name: name,
         showType: showType,
         children: [],
@@ -57,7 +55,7 @@ void addToNodes({
 }) {
   BlocProvider.of<CollectionBloc>(context).add(
     AddToNode(
-      child: CollectionState(
+      newChild: CollectionState(
         name: name,
         showType: showType,
         children: [],
