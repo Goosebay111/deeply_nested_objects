@@ -18,8 +18,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
     );
 
     on<DeleteNode>((event, emit) {
-      // erase the node that is the parent
-
+      // erase in the top layer
       if (event.parent.showType == ShowType.series) {
         emit(
           state.copyWith(
@@ -29,6 +28,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
         );
       }
 
+      // erase in the deeply nested layers
       if (event.parent.showType == ShowType.season ||
           event.parent.showType == ShowType.episode) {
         final CollectionState nodeTree = state;
