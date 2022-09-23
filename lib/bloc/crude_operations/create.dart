@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
-import 'package:deeply_nested_objects/naming_dialog_box.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:deeply_nested_objects/bloc/pages/navigate_to_next_page.dart';
+import 'package:deeply_nested_objects/helper_functions/naming_dialog_box.dart';
 
 void createNode({
   required CollectionState parentNode,
@@ -37,39 +38,6 @@ void createNode({
   }
 }
 
-void navigateToNextPage({
-  required CollectionState parentNode,
-  required BuildContext context,
-}) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => Scaffold(
-        appBar: AppBar(
-          title: Text(parentNode.name),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(child: Text(parentNode.name)),
-            Center(
-              child: ElevatedButton(
-                onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => const AlertDialog(
-                    title: Text('You pressed the button'),
-                  ),
-                ),
-                child: const Text('Message'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
 void addToTopLayer({required name, required showType, required context}) async {
   String? newName = await namingDialogBox(
     context: context,
@@ -77,7 +45,7 @@ void addToTopLayer({required name, required showType, required context}) async {
     newRequest: 'Rename Collection',
   );
 
-  if(newName == null) {
+  if (newName == null) {
     return;
   }
 
@@ -85,6 +53,7 @@ void addToTopLayer({required name, required showType, required context}) async {
     AddToTopLayerData(
       newChild: CollectionState(
         name: newName,
+        webAddress: null,
         showType: showType,
         children: [],
       ),
@@ -108,6 +77,7 @@ void addToNodes({
     AddToDeeplyNestedData(
       newChild: CollectionState(
         name: newName ?? name,
+        webAddress: null,
         showType: showType,
         children: [],
       ),

@@ -38,7 +38,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       }
     });
 
-    on<UpdateNode>((event, emit) {
+    on<UpdateNodeName>((event, emit) {
       emit(
         state.copyWith(
           children: state.children
@@ -51,6 +51,35 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
                                   .map(
                                     (e) => e == event.parent
                                         ? e.copyWith(name: event.newName)
+                                        : e,
+                                  )
+                                  .toList(),
+                            ))
+                        .toList(),
+                  ))
+              .toList(),
+        ),
+      );
+    });
+
+    on<UpdateNodeWebAddress>((event, emit) {
+      print('Collection_Bloc: ${event.newWebAddress}');
+      emit(
+        state.copyWith(
+          children: state.children
+              .map((e) => e.copyWith(
+                    webAddress:
+                        e == event.parent ? event.newWebAddress : e.webAddress,
+                    children: e.children
+                        .map((e) => e.copyWith(
+                              webAddress: e == event.parent
+                                  ? event.newWebAddress
+                                  : e.webAddress,
+                              children: e.children
+                                  .map(
+                                    (e) => e == event.parent
+                                        ? e.copyWith(
+                                            webAddress: event.newWebAddress)
                                         : e,
                                   )
                                   .toList(),

@@ -23,14 +23,24 @@ class AddToDeeplyNestedData extends CollectionEvents {
   final CollectionState parent;
 }
 
-class UpdateNode extends CollectionEvents {
-  UpdateNode({
+class UpdateNodeName extends CollectionEvents {
+  UpdateNodeName({
     required this.newName,
     required this.parent,
   });
 
   final CollectionState parent;
   final String newName;
+}
+
+class UpdateNodeWebAddress extends CollectionEvents {
+  UpdateNodeWebAddress({
+    required this.newWebAddress,
+    required this.parent,
+  });
+
+  final CollectionState parent;
+  final String? newWebAddress;
 }
 
 class DeleteNode extends CollectionEvents {
