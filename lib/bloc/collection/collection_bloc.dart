@@ -19,7 +19,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
     );
 
     on<DeleteNode>((event, emit) {
-      // 1) erase in the top layer
+      // 1) erase in the top layer node children.
       if (event.parent.showType == ShowType.series) {
         emit(
           state.copyWith(
