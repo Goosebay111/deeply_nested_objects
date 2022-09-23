@@ -40,10 +40,16 @@ class MyHomePage extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(left: distance),
                 child: ListTile(
-                  onTap: () => addToCollectionLogic(nodes.showType, index,
-                      nodes.children.length, context),
+                  onTap: () => addToCollectionLogic(
+                    parent: nodes,
+                    showType: nodes.showType,
+                    context: context,
+                  ),
                   leading: Card(
-                    child: Text(nodes.name, style: TextStyle(color: textColor)),
+                    child: Text(
+                      nodes.name,
+                      style: TextStyle(color: textColor),
+                    ),
                   ),
                 ),
               );

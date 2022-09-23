@@ -4,27 +4,42 @@ import 'package:deeply_nested_objects/bloc/collection_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void addToCollectionLogic(
-    ShowType showType, int index, int count, BuildContext context) {
+void addToCollectionLogic({
+  required CollectionState parent,
+  required ShowType showType,
+  required BuildContext context,
+}
+  
+) {
   switch (showType) {
     case ShowType.collection:
-      addToTopLayer('Series ${count + 1}', index, ShowType.series, context);
+      addToTopLayer(
+          name: 'Series ${parent.children.length + 1}',
+          showType: ShowType.series,
+          context: context);
       break;
     case ShowType.series:
-      addToNodes('Season ${count + 1}', index, ShowType.season, context);
+      addToNodes(
+          parent: parent,
+          name: 'Season ${parent.children.length + 1}',
+          showType: ShowType.season,
+          context: context);
       break;
     case ShowType.season:
-      addToNodes('Episode ${count + 1}', index, ShowType.episode, context);
+      addToNodes(
+          parent: parent,
+          name: 'Episode ${parent.children.length + 1}',
+          showType: ShowType.episode,
+          context: context);
       break;
     case ShowType.episode:
       break;
   }
 }
 
-void addToTopLayer(name, index, showType, context) {
+void addToTopLayer({required name, required showType, required context}) {
   BlocProvider.of<CollectionBloc>(context).add(
     AddToTopLayer(
-      index: index,
       child: CollectionState(
         name: name,
         showType: showType,
@@ -34,15 +49,20 @@ void addToTopLayer(name, index, showType, context) {
   );
 }
 
-void addToNodes(name, index, showType, context) {
+void addToNodes({
+  required name,
+  required parent,
+  required showType,
+  required context,
+}) {
   BlocProvider.of<CollectionBloc>(context).add(
     AddToNode(
-      index: index,
       child: CollectionState(
         name: name,
         showType: showType,
         children: [],
       ),
+      parent: parent,
     ),
   );
 }
