@@ -1,7 +1,7 @@
 import 'package:deeply_nested_objects/bloc/add_to_collection_logic.dart';
 import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
-import 'package:deeply_nested_objects/bloc/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection_state.dart';
+import 'package:deeply_nested_objects/bloc/crud_operations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,12 +47,8 @@ class MyHomePage extends StatelessWidget {
                     context: context,
                   ),
                   onLongPress: () {
-                    BlocProvider.of<CollectionBloc>(context).add(
-                      RenameNode(
-                        parent: nodes,
-                        newName: 'Renamed ${nodes.name}',
-                      ),
-                    );
+                    updateNode(
+                        name: nodes.name, parent: nodes, context: context);
                   },
                   leading: Card(
                     child: Text(
