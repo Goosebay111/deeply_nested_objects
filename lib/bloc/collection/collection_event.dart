@@ -1,4 +1,4 @@
-import 'package:deeply_nested_objects/bloc/collection_state.dart';
+import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class CollectionEvents extends Equatable {

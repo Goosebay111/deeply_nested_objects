@@ -1,5 +1,5 @@
-import 'package:deeply_nested_objects/bloc/collection_event.dart';
-import 'package:deeply_nested_objects/bloc/collection_state.dart';
+import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
+import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
 import 'package:deeply_nested_objects/bloc/crude_operations/delete.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +19,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
     );
 
     on<DeleteNode>((event, emit) {
-      // erase in the top layer
+      // 1) erase in the top layer
       if (event.parent.showType == ShowType.series) {
         emit(
           state.copyWith(
@@ -29,7 +29,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
         );
       }
 
-      // erase in the deeply nested layers
+      // 2) erase in the deeply nested layers
       if (event.parent.showType == ShowType.season ||
           event.parent.showType == ShowType.episode) {
         final CollectionState nodeTree = state;

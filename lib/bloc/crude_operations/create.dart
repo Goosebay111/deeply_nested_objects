@@ -1,6 +1,6 @@
-import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
-import 'package:deeply_nested_objects/bloc/collection_event.dart';
-import 'package:deeply_nested_objects/bloc/collection_state.dart';
+import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
+import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
+import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
 import 'package:deeply_nested_objects/naming_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,10 +77,14 @@ void addToTopLayer({required name, required showType, required context}) async {
     newRequest: 'Rename Collection',
   );
 
+  if(newName == null) {
+    return;
+  }
+
   BlocProvider.of<CollectionBloc>(context).add(
     AddToTopLayerData(
       newChild: CollectionState(
-        name: newName ?? name,
+        name: newName,
         showType: showType,
         children: [],
       ),

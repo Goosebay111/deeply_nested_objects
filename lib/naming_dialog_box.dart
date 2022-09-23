@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
@@ -6,7 +5,9 @@ import 'dart:math';
 Future namingDialogBox(
     {required BuildContext context,
     required String newRequest,
-    String currentText = '', bool youTube = false, bool uniqueCode = false}) async {
+    String currentText = '',
+    bool youTube = false,
+    bool uniqueCode = false}) async {
   TextEditingController controller = TextEditingController()
     ..text = currentText;
   return showDialog(
@@ -15,7 +16,11 @@ Future namingDialogBox(
       return AlertDialog(
         title: Text(newRequest),
         content: TextField(
-          maxLength: uniqueCode? 24 : youTube == false ? 20 : 50,
+          maxLength: uniqueCode
+              ? 24
+              : youTube == false
+                  ? 20
+                  : 50,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           controller: controller,
         ),
@@ -25,7 +30,7 @@ Future namingDialogBox(
             child: TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Icon(
-                CupertinoIcons.add_circled_solid,
+                Icons.add,
                 color: Colors.red,
                 size: 40,
               ),
@@ -34,7 +39,7 @@ Future namingDialogBox(
           TextButton(
             onPressed: () => Navigator.of(context).pop(controller.text),
             child: const Icon(
-              CupertinoIcons.checkmark_circle_fill,
+              Icons.add,
               color: Color(0xff258029),
               size: 40,
             ),
