@@ -1,5 +1,6 @@
 import 'package:deeply_nested_objects/bloc/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection_state.dart';
+import 'package:deeply_nested_objects/bloc/crude_operations/delete.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
@@ -32,23 +33,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       if (event.parent.showType == ShowType.season ||
           event.parent.showType == ShowType.episode) {
         final CollectionState nodeTree = state;
-        for (var element in nodeTree.children) {
-          if (element.children.contains(event.parent)) {
-            element.children.remove(event.parent);
-          }
-
-          for (var element in element.children) {
-            if (element.children.contains(event.parent)) {
-              element.children.remove(event.parent);
-            }
-
-            for (var element in element.children) {
-              if (element.children.contains(event.parent)) {
-                element.children.remove(event.parent);
-              }
-            }
-          }
-        }
+        deleteFromParentNode(event.parent, nodeTree);
         emit(state.copyWith(children: [...state.children]));
       }
     });
