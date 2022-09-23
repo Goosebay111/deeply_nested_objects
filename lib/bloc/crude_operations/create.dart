@@ -14,23 +14,30 @@ void createNode({
   switch (showType) {
     case ShowType.collection:
       addToTopLayer(
-          name: 'Series ${parentNode.children.length + 1}',
-          showType: ShowType.series,
-          context: context);
+        name: 'Series ${parentNode.children.length + 1}',
+        showType: ShowType.series,
+        context: context,
+      );
       break;
     case ShowType.series:
       addToNodes(
-          parent: parentNode,
-          name: 'Season ${parentNode.children.length + 1}',
-          showType: ShowType.season,
-          context: context);
+        parent: parentNode,
+        name: 'Season ${parentNode.children.length + 1}',
+        showType: ShowType.season,
+        context: context,
+        newRequest: 'Name Season',
+        youTube: false,
+      );
       break;
     case ShowType.season:
       addToNodes(
-          parent: parentNode,
-          name: 'Episode ${parentNode.children.length + 1}',
-          showType: ShowType.episode,
-          context: context);
+        parent: parentNode,
+        name: 'Episode ${parentNode.children.length + 1}',
+        showType: ShowType.episode,
+        context: context,
+        newRequest: 'Enter YouTube Link',
+        youTube: true,
+      );
       break;
     case ShowType.episode:
       navigateToNextPage(parentNode: parentNode, context: context);
@@ -66,14 +73,19 @@ void addToNodes({
   required parent,
   required showType,
   required context,
+  required newRequest,
+  required bool youTube,
 }) async {
+  /// TODO:
   String? newName = await namingDialogBox(
     context: context,
     currentText: name,
-    newRequest: 'Rename Collection',
+    newRequest: newRequest,
+    youTube: youTube,
   );
-
-  BlocProvider.of<CollectionBloc>(context).add(
+  ///
+  if (showType == ShowType.season){
+    BlocProvider.of<CollectionBloc>(context).add(
     AddToDeeplyNestedData(
       newChild: CollectionState(
         name: newName ?? name,
@@ -84,4 +96,18 @@ void addToNodes({
       parent: parent,
     ),
   );
+  } else if (showType == ShowType.episode){
+    BlocProvider.of<CollectionBloc>(context).add(
+    AddToDeeplyNestedData(
+      newChild: CollectionState(
+        name: 'Episode ${parent.children.length + 1}',
+        webAddress: newName ?? name,
+        showType: showType,
+        children: [],
+      ),
+      parent: parent,
+    ),
+  );
+  }
+  
 }
