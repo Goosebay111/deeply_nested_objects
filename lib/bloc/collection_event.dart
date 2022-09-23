@@ -23,26 +23,12 @@ class AddToNode extends CollectionEvents {
   final CollectionState parent;
 }
 
-class RenameTopLayer extends CollectionEvents {
-  RenameTopLayer({
-    required this.newName,
-   // required this.index,
-    required this.parent,
-    //required this.child,
-  });
-
-  final CollectionState parent;
-  //final CollectionState child;
-  final String newName;
- // final int index;
-}
-
 class RenameNode extends CollectionEvents {
   RenameNode({
     required this.newName,
     required this.parent,
   });
 
-  final String newName;
   final CollectionState parent;
+  final String newName;
 }

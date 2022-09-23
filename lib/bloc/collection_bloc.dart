@@ -17,59 +17,30 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       },
     );
 
-    on<RenameTopLayer>(
-      (event, emit) {
-        final CollectionState parent = event.parent;
-        // print('state: ${state.name}');
-        // print('parent: ${parent.name}');
-        // print('child: ${event.child.name}');
-
-        if (event.parent.showType == ShowType.series) {
-          emit(
-            state.copyWith(
-              children: state.children
-                  .map((e) => e == parent ? e.copyWith(name: event.newName) : e)
-                  .toList(),
-            ),
-          );
-        } else if (event.parent.showType == ShowType.season) {
-          emit(
-            state.copyWith(
-              children: state.children
-                  .map((e) => e.copyWith(
-                        children: e.children
-                            .map(
-                              (e) => e == event.parent
-                                  ? e.copyWith(name: event.newName)
-                                  : e,
-                            )
-                            .toList(),
-                      ))
-                  .toList(),
-            ),
-          );
-        } else if (event.parent.showType == ShowType.episode) {
-          emit(
-            state.copyWith(
-              children: state.children
-                  .map((e) => e.copyWith(
-                        children: e.children
-                            .map((e) => e.copyWith(
-                                  children: e.children
-                                      .map(
-                                        (e) => e == event.parent
-                                            ? e.copyWith(name: event.newName)
-                                            : e,
-                                      )
-                                      .toList(),
-                                ))
-                            .toList(),
-                      ))
-                  .toList(),
-            ),
-          );
-        }
-      },
-    );
+    on<RenameNode>((event, emit) {
+      emit(
+        state.copyWith(
+          children: state.children
+              .map((e) => e.copyWith(
+                    name: e == event.parent ? event.newName : e.name,
+                    children: e.children
+                        .map((e) => e.copyWith(
+                              name: e == event.parent ? event.newName : e.name,
+                              children: e.children
+                                  .map(
+                                    (e) => e == event.parent
+                                        ? e.copyWith(name: event.newName)
+                                        : e,
+                                  )
+                                  .toList(),
+                            ))
+                        .toList(),
+                  ))
+              .toList(),
+        ),
+      );
+    }
+        // },
+        );
   }
 }

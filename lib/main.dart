@@ -47,16 +47,13 @@ class MyHomePage extends StatelessWidget {
                     context: context,
                   ),
                   onLongPress: () {
-                    if (nodes.showType != ShowType.collection) {
-                      BlocProvider.of<CollectionBloc>(context).add(
-                        RenameTopLayer(
-                          parent: nodes,
-                          newName: 'Renamed ${nodes.name}',
-                        ),
-                      );
-                    }
+                    BlocProvider.of<CollectionBloc>(context).add(
+                      RenameNode(
+                        parent: nodes,
+                        newName: 'Renamed ${nodes.name}',
+                      ),
+                    );
                   },
-                  
                   leading: Card(
                     child: Text(
                       nodes.name,

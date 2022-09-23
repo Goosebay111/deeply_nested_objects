@@ -1,6 +1,7 @@
 import 'package:deeply_nested_objects/bloc/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection_state.dart';
+import 'package:deeply_nested_objects/naming_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,11 +36,18 @@ void addToCollectionLogic({
   }
 }
 
-void addToTopLayer({required name, required showType, required context}) {
+void addToTopLayer({required name, required showType, required context}) async {
+
+  String? newName = await namingDialogBox(
+            context: context,
+            currentText: name,
+            newRequest: 'Rename Collection',
+          );
+
   BlocProvider.of<CollectionBloc>(context).add(
     AddToTopLayer(
       newChild: CollectionState(
-        name: name,
+        name: newName ?? name,
         showType: showType,
         children: [],
       ),
@@ -52,11 +60,18 @@ void addToNodes({
   required parent,
   required showType,
   required context,
-}) {
+})  async {
+
+  String? newName = await namingDialogBox(
+            context: context,
+            currentText: name,
+            newRequest: 'Rename Collection',
+          );
+
   BlocProvider.of<CollectionBloc>(context).add(
     AddToNode(
       newChild: CollectionState(
-        name: name,
+        name: newName ?? name,
         showType: showType,
         children: [],
       ),
