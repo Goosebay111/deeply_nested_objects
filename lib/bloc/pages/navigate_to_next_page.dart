@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
-import 'package:deeply_nested_objects/bloc/crude_operations/update.dart';
 
 void navigateToNextPage({
   required CollectionState parentNode,
@@ -48,26 +47,6 @@ class AdaptiveVideoPlayer extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class GetWebAddressForYouTube extends StatelessWidget {
-  const GetWebAddressForYouTube({super.key, required this.parentNode});
-  final CollectionState parentNode;
-
-  @override
-  Widget build(BuildContext context) {
-    print(parentNode.name);
-    print(parentNode.webAddress);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      updateNodeWebAddress(
-          webAddress: parentNode.webAddress,
-          parent: parentNode,
-          showType: parentNode.showType,
-          context: context);
-    });
-
-    return Container();
   }
 }
 

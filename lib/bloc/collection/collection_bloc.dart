@@ -33,8 +33,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       // 2) erase in the deeply nested layers
       if (event.parent.showType == ShowType.season ||
           event.parent.showType == ShowType.episode) {
-        final CollectionState nodeTree = state;
-        deleteFromParentNode(event.parent, nodeTree);
+        deleteNodeFromHierarchy(event.parent, state);
         emit(state.copyWith(children: [...state.children]));
       }
     });
