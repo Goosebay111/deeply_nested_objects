@@ -60,10 +60,12 @@ CollectionState renameNodeInHierarchy(
   CollectionState nodeToChange,
   CollectionState hierarchy,
 ) {
-  return hierarchy
-      .copyWith(name: hierarchy == nodeToChange ? newName : hierarchy.name, children: [
-    for (var child in hierarchy.children) renameNodeInHierarchy(newName, nodeToChange, child)
-  ]);
+  return hierarchy.copyWith(
+      name: hierarchy == nodeToChange ? newName : hierarchy.name,
+      children: [
+        for (var child in hierarchy.children)
+          renameNodeInHierarchy(newName, nodeToChange, child)
+      ]);
 }
 
 CollectionState renameWebAddressInHierarchy(
@@ -72,7 +74,8 @@ CollectionState renameWebAddressInHierarchy(
   CollectionState hierarchy,
 ) {
   return hierarchy.copyWith(
-      webAddress: hierarchy == nodeToChange ? newWebAddress : hierarchy.webAddress,
+      webAddress:
+          hierarchy == nodeToChange ? newWebAddress : hierarchy.webAddress,
       children: [
         for (var child in hierarchy.children)
           renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
