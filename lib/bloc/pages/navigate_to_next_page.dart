@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
 import 'package:deeply_nested_objects/helper_functions/convert_youtube_url.dart';
@@ -87,13 +86,8 @@ class _TopHatVideoPlayerState extends State<TopHatVideoPlayer> {
   void initState() {
     super.initState();
 
-    log('webAddress: ${widget.webAddress}');
-
+    /// needs to be added to take into account the inadequacies of the youtube_player_flutter package.
     String? processedURL = ProcessURL.convertToUseableURL(widget.webAddress);
-
-    log('processedURL: $processedURL');
-
-   
 
     controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(processedURL!)!,

@@ -1,18 +1,16 @@
-import 'dart:developer';
+// https://dev.to/0xba1/using-regular-expressionsregexp-in-dartflutter-3p1j
 
 class ProcessURL {
   static String? convertToUseableURL(String? youTubeUrl) {
-    log('youTubeUrl to be converted: $youTubeUrl');
     try {
       if (youTubeUrl == null) {
         return null;
       }
 
-      log(youTubeUrl.substring(0, 31));
       if (youTubeUrl.substring(0, 17) == 'https://youtu.be/') {
         return _convertYoutubeAbbreviatedUrlToVideoUrl(youTubeUrl);
-      } else if (youTubeUrl.substring(0, 31) == 'https://www.youtube.com/shorts/') {
-        log(youTubeUrl);
+      } else if (youTubeUrl.substring(0, 31) ==
+          'https://www.youtube.com/shorts/') {
         return _convertYoutubeShortsUrlToVideoUrl(youTubeUrl);
       } else if (youTubeUrl.substring(0, 32) ==
           'https://www.youtube.com/watch?v=') {
@@ -27,6 +25,7 @@ class ProcessURL {
   }
 
   static String? _convertYoutubeShortsUrlToVideoUrl(String? youtubeUrl) {
+    // i.e. convert the string https://www.youtube.com/shorts/jC0J4mG_Rxs to https://www.youtube.com/watch?v=jC0J4mG_Rxs
     if (youtubeUrl == null) {
       return null;
     }
@@ -36,9 +35,7 @@ class ProcessURL {
   }
 
   static String? _convertYoutubeAbbreviatedUrlToVideoUrl(String youtubeUrl) {
-    // i.e. convert the string https://www.youtube.com/shorts/jC0J4mG_Rxs to https://www.youtube.com/watch?v=jC0J4mG_Rxs
-    final regExp = RegExp(
-        r'^.*(youtu.be\/|watch\?v=|\&v=)([^#\&\?]*).*');
+    final regExp = RegExp(r'^.*(youtube\/|watch\?v=|\&v=)([^#\&\?]*).*');
     final match = regExp.firstMatch(youtubeUrl);
     return match != null ? 'https://www.youtube.com/watch?v=${match[2]}' : null;
   }
