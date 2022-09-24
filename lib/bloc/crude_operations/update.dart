@@ -54,3 +54,27 @@ void updateNodeWebAddress({
     ),
   );
 }
+
+CollectionState renameNodeInHierarchy(
+  String newName,
+  CollectionState nodeToChange,
+  CollectionState hierarchy,
+) {
+  return hierarchy
+      .copyWith(name: hierarchy == nodeToChange ? newName : hierarchy.name, children: [
+    for (var child in hierarchy.children) renameNodeInHierarchy(newName, nodeToChange, child)
+  ]);
+}
+
+CollectionState renameWebAddressInHierarchy(
+  String newWebAddress,
+  CollectionState nodeToChange,
+  CollectionState hierarchy,
+) {
+  return hierarchy.copyWith(
+      webAddress: hierarchy == nodeToChange ? newWebAddress : hierarchy.webAddress,
+      children: [
+        for (var child in hierarchy.children)
+          renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
+      ]);
+}

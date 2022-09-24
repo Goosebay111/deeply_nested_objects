@@ -1,6 +1,7 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
 import 'package:deeply_nested_objects/bloc/crude_operations/delete.dart';
+import 'package:deeply_nested_objects/bloc/crude_operations/update.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
@@ -38,57 +39,20 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       }
     });
 
-    on<UpdateNodeName>((event, emit) {
-      emit(
-        state.copyWith(
-          children: state.children
-              .map((e) => e.copyWith(
-                    name: e == event.parent ? event.newName : e.name,
-                    children: e.children
-                        .map((e) => e.copyWith(
-                              name: e == event.parent ? event.newName : e.name,
-                              children: e.children
-                                  .map(
-                                    (e) => e == event.parent
-                                        ? e.copyWith(name: event.newName)
-                                        : e,
-                                  )
-                                  .toList(),
-                            ))
-                        .toList(),
-                  ))
-              .toList(),
-        ),
-      );
-    });
+    on<UpdateNodeName>(((event, emit) {
+      emit(renameNodeInHierarchy(
+        event.newName,
+        event.parent,
+        state,
+      ));
+    }));
 
     on<UpdateNodeWebAddress>((event, emit) {
-      print('Collection_Bloc: ${event.newWebAddress}');
-      emit(
-        state.copyWith(
-          children: state.children
-              .map((e) => e.copyWith(
-                    webAddress:
-                        e == event.parent ? event.newWebAddress : e.webAddress,
-                    children: e.children
-                        .map((e) => e.copyWith(
-                              webAddress: e == event.parent
-                                  ? event.newWebAddress
-                                  : e.webAddress,
-                              children: e.children
-                                  .map(
-                                    (e) => e == event.parent
-                                        ? e.copyWith(
-                                            webAddress: event.newWebAddress)
-                                        : e,
-                                  )
-                                  .toList(),
-                            ))
-                        .toList(),
-                  ))
-              .toList(),
-        ),
-      );
+      emit(renameWebAddressInHierarchy(
+        event.newWebAddress!,
+        event.parent,
+        state,
+      ));
     });
   }
 }
