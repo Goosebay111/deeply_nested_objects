@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
+import 'package:deeply_nested_objects/helper_functions/convert_youtube_url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -31,7 +34,6 @@ class AdaptiveVideoPlayer extends StatelessWidget {
     // webAddress = 'https://www.youtube.com/watch?v=5pdnzUjmkzA';
     return BlocBuilder<CollectionBloc, CollectionState>(
       builder: (context, state) {
-        
         return Scaffold(
           appBar: MediaQuery.of(context).orientation == Orientation.landscape
               ? null
@@ -85,8 +87,16 @@ class _TopHatVideoPlayerState extends State<TopHatVideoPlayer> {
   void initState() {
     super.initState();
 
+    log('webAddress: ${widget.webAddress}');
+
+    String? processedURL = ProcessURL.convertToUseableURL(widget.webAddress);
+
+    log('processedURL: $processedURL');
+
+   
+
     controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(widget.webAddress)!,
+      initialVideoId: YoutubePlayer.convertUrlToId(processedURL!)!,
     );
   }
 
