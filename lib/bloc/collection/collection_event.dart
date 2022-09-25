@@ -16,11 +16,11 @@ class AddToTopLayerData extends CollectionEvents {
 class AddToDeeplyNestedData extends CollectionEvents {
   AddToDeeplyNestedData({
     required this.newChild,
-    required this.parent,
+    required this.parentNode,
   });
 
   final CollectionState newChild;
-  final CollectionState parent;
+  final CollectionState parentNode;
 }
 
 class UpdateNodeName extends CollectionEvents {

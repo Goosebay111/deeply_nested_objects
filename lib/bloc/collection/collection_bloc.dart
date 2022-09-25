@@ -11,9 +11,9 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
 
     on<AddToDeeplyNestedData>(
       (event, emit) {
-        final CollectionState parent = event.parent;
+        final CollectionState parentNode = event.parentNode;
 
-        parent.children.add(event.newChild);
+        parentNode.children.add(event.newChild);
 
         emit(state.copyWith(children: [...state.children]));
       },
@@ -24,13 +24,14 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       if (event.parent.showType == ShowType.series) {
         emit(
           state.copyWith(
-              children: state.children
-                  .where((element) => element != event.parent)
-                  .toList()),
+            children: state.children
+                .where((element) => element != event.parent)
+                .toList(),
+          ),
         );
       }
 
-      // 2) erase in the deeply nested layers
+      // 2) erase a node from the deeply nested layers
       if (event.parent.showType == ShowType.season ||
           event.parent.showType == ShowType.episode) {
         deleteNodeFromHierarchy(event.parent, state);

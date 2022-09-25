@@ -11,7 +11,6 @@ List<CollectionState> getAllNodesOfParent(
   return result;
 }
 
-// I want a method that gives all of the nodes of a parent node excluding the parent node itself.
 List<CollectionState> getAllNodesOfParentExcludingParent(
     {required CollectionState parentNode}) {
   final List<CollectionState> result = [];

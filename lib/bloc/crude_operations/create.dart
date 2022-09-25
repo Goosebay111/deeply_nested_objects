@@ -76,38 +76,38 @@ void addToNodes({
   required newRequest,
   required bool youTube,
 }) async {
-  /// TODO:
+  ///
   String? newName = await namingDialogBox(
     context: context,
     currentText: name,
     newRequest: newRequest,
     youTube: youTube,
   );
+
   ///
-  if (showType == ShowType.season){
+  if (showType == ShowType.season) {
     BlocProvider.of<CollectionBloc>(context).add(
-    AddToDeeplyNestedData(
-      newChild: CollectionState(
-        name: newName ?? name,
-        webAddress: null,
-        showType: showType,
-        children: [],
+      AddToDeeplyNestedData(
+        newChild: CollectionState(
+          name: newName ?? name,
+          webAddress: null,
+          showType: showType,
+          children: [],
+        ),
+        parentNode: parent,
       ),
-      parent: parent,
-    ),
-  );
-  } else if (showType == ShowType.episode){
+    );
+  } else if (showType == ShowType.episode) {
     BlocProvider.of<CollectionBloc>(context).add(
-    AddToDeeplyNestedData(
-      newChild: CollectionState(
-        name: 'Episode ${parent.children.length + 1}',
-        webAddress: newName ?? name,
-        showType: showType,
-        children: [],
+      AddToDeeplyNestedData(
+        newChild: CollectionState(
+          name: 'Episode ${parent.children.length + 1}',
+          webAddress: newName ?? name,
+          showType: showType,
+          children: [],
+        ),
+        parentNode: parent,
       ),
-      parent: parent,
-    ),
-  );
+    );
   }
-  
 }

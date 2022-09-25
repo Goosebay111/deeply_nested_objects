@@ -45,8 +45,6 @@ void updateNodeWebAddress({
     youTube: true,
   );
 
-  print('newWebAddress: $newWebAddress');
-
   BlocProvider.of<CollectionBloc>(context).add(
     UpdateNodeWebAddress(
       newWebAddress: newWebAddress ?? webAddress,
@@ -58,12 +56,12 @@ void updateNodeWebAddress({
 CollectionState renameNodeInHierarchy(
   String newName,
   CollectionState nodeToChange,
-  CollectionState hierarchy,
+  CollectionState currentNode,
 ) {
-  return hierarchy.copyWith(
-      name: hierarchy == nodeToChange ? newName : hierarchy.name,
+  return currentNode.copyWith(
+      name: currentNode == nodeToChange ? newName : currentNode.name,
       children: [
-        for (var child in hierarchy.children)
+        for (var child in currentNode.children)
           renameNodeInHierarchy(newName, nodeToChange, child)
       ]);
 }
@@ -71,13 +69,13 @@ CollectionState renameNodeInHierarchy(
 CollectionState renameWebAddressInHierarchy(
   String newWebAddress,
   CollectionState nodeToChange,
-  CollectionState hierarchy,
+  CollectionState currentNode,
 ) {
-  return hierarchy.copyWith(
+  return currentNode.copyWith(
       webAddress:
-          hierarchy == nodeToChange ? newWebAddress : hierarchy.webAddress,
+          currentNode == nodeToChange ? newWebAddress : currentNode.webAddress,
       children: [
-        for (var child in hierarchy.children)
+        for (var child in currentNode.children)
           renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
       ]);
 }
