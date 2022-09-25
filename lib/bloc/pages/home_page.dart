@@ -18,7 +18,7 @@ class MyHomePage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: false,
             leadingWidth: 0.0,
-            title: const CollectionTitleAppBar(),
+            title: const Text('Deeply Nested Objects and BLoC'),
           ),
           body: ListView.separated(
             separatorBuilder: (context, index) => const Divider(height: 1),
@@ -117,39 +117,5 @@ class MyHomePage extends StatelessWidget {
       case ShowType.episode:
         return Colors.red;
     }
-  }
-}
-
-class CollectionTitleAppBar extends StatelessWidget {
-  const CollectionTitleAppBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        const Text('Top',
-            style: TextStyle(fontSize: 30, color: Colors.black87)),
-        Text('ic',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w100,
-              color: Colors.grey[200],
-            )),
-        const Text('Hat',
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.black87,
-            )),
-        Text('ch',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w100,
-              color: Colors.grey[200],
-            )),
-      ],
-    );
   }
 }
