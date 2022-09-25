@@ -37,18 +37,6 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       emit(renameNodeInHierarchy(event.newName, event.parent, state));
     }));
 
-    CollectionState renameWebAddressInHierarchy(String newWebAddress,
-        CollectionState nodeToChange, CollectionState currentNode) {
-      return currentNode.copyWith(
-          webAddress: currentNode == nodeToChange
-              ? newWebAddress
-              : currentNode.webAddress,
-          children: [
-            for (var child in currentNode.children)
-              renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
-          ]);
-    }
-
     on<UpdateNodeWebAddress>((event, emit) {
       emit(renameWebAddressInHierarchy(
           event.newWebAddress!, event.parent, state));
@@ -63,6 +51,17 @@ CollectionState renameNodeInHierarchy(
       children: [
         for (var child in currentNode.children)
           renameNodeInHierarchy(newName, nodeToChange, child)
+      ]);
+}
+
+CollectionState renameWebAddressInHierarchy(String newWebAddress,
+    CollectionState nodeToChange, CollectionState currentNode) {
+  return currentNode.copyWith(
+      webAddress:
+          currentNode == nodeToChange ? newWebAddress : currentNode.webAddress,
+      children: [
+        for (var child in currentNode.children)
+          renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
       ]);
 }
 
