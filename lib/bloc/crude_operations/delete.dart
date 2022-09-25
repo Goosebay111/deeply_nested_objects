@@ -10,24 +10,26 @@ void deleteNode({
 }) async {
   // add dialog box here asking if the user is sure they want to delete the node
   showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-            title: const Text('Are you sure you want to delete this node?'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('No'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  BlocProvider.of<CollectionBloc>(context).add(
-                    DeleteNode(parent: parent),
-                  );
-                },
-                child: const Text('Yes'),
-              ),
-            ],
-          ));
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Are you sure you want to delete this node?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('No'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            BlocProvider.of<CollectionBloc>(context).add(
+              (parent.showType == ShowType.series)
+                  ? DeleteFromParentNode(parent: parent)
+                  : DeleteFromNestedNode(parent: parent),
+            );
+          },
+          child: const Text('Yes'),
+        ),
+      ],
+    ),
+  );
 }
-

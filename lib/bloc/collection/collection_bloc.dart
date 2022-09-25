@@ -15,30 +15,17 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       },
     );
 
-    on<DeleteNode>((event, emit) {
-      // 1) erase in the top layer node children.
-      if (event.parent.showType == ShowType.series) {
-        emit(
-          state.copyWith(
-            children: state.children
-                .where((element) => element != event.parent)
-                .toList(),
-          ),
-        );
-      }
+    on<DeleteFromParentNode>(((event, emit) {
+      emit(
+        state.copyWith(
+          children: state.children
+              .where((element) => element != event.parent)
+              .toList(),
+        ),
+      );
+    }));
 
-      void deleteNodeFromHierarchy(
-          CollectionState object, CollectionState node) {
-        if (node.children.contains(object)) {
-          node.children.remove(object);
-        } else {
-          for (CollectionState child in node.children) {
-            deleteNodeFromHierarchy(object, child);
-          }
-        }
-      }
-
-      // 2) erase a node from the deeply nested layers
+    on<DeleteFromNestedNode>((event, emit) {
       if (event.parent.showType == ShowType.season ||
           event.parent.showType == ShowType.episode) {
         deleteNodeFromHierarchy(event.parent, state);
@@ -46,22 +33,8 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       }
     });
 
-    CollectionState renameNodeInHierarchy(String newName,
-        CollectionState nodeToChange, CollectionState currentNode) {
-      return currentNode.copyWith(
-          name: currentNode == nodeToChange ? newName : currentNode.name,
-          children: [
-            for (var child in currentNode.children)
-              renameNodeInHierarchy(newName, nodeToChange, child)
-          ]);
-    }
-
     on<UpdateNodeName>(((event, emit) {
-      emit(renameNodeInHierarchy(
-        event.newName,
-        event.parent,
-        state,
-      ));
+      emit(renameNodeInHierarchy(event.newName, event.parent, state));
     }));
 
     CollectionState renameWebAddressInHierarchy(String newWebAddress,
@@ -78,10 +51,27 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
 
     on<UpdateNodeWebAddress>((event, emit) {
       emit(renameWebAddressInHierarchy(
-        event.newWebAddress!,
-        event.parent,
-        state,
-      ));
+          event.newWebAddress!, event.parent, state));
     });
+  }
+}
+
+CollectionState renameNodeInHierarchy(
+    String newName, CollectionState nodeToChange, CollectionState currentNode) {
+  return currentNode.copyWith(
+      name: currentNode == nodeToChange ? newName : currentNode.name,
+      children: [
+        for (var child in currentNode.children)
+          renameNodeInHierarchy(newName, nodeToChange, child)
+      ]);
+}
+
+void deleteNodeFromHierarchy(CollectionState object, CollectionState node) {
+  if (node.children.contains(object)) {
+    node.children.remove(object);
+  } else {
+    for (CollectionState child in node.children) {
+      deleteNodeFromHierarchy(object, child);
+    }
   }
 }

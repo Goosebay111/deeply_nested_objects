@@ -43,8 +43,16 @@ class UpdateNodeWebAddress extends CollectionEvents {
   final String? newWebAddress;
 }
 
-class DeleteNode extends CollectionEvents {
-  DeleteNode({
+class DeleteFromNestedNode extends CollectionEvents {
+  DeleteFromNestedNode({
+    required this.parent,
+  });
+
+  final CollectionState parent;
+}
+
+class DeleteFromParentNode extends CollectionEvents {
+  DeleteFromParentNode({
     required this.parent,
   });
 
