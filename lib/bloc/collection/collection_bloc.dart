@@ -1,7 +1,5 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
-import 'package:deeply_nested_objects/bloc/crude_operations/delete.dart';
-import 'package:deeply_nested_objects/bloc/crude_operations/update.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
@@ -11,9 +9,7 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
 
     on<AddToDeeplyNestedData>(
       (event, emit) {
-        final CollectionState parentNode = event.parentNode;
-
-        parentNode.children.add(event.newChild);
+        event.parentNode.children.add(event.newChild);
 
         emit(state.copyWith(children: [...state.children]));
       },
@@ -31,6 +27,17 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
         );
       }
 
+      void deleteNodeFromHierarchy(
+          CollectionState object, CollectionState node) {
+        if (node.children.contains(object)) {
+          node.children.remove(object);
+        } else {
+          for (CollectionState child in node.children) {
+            deleteNodeFromHierarchy(object, child);
+          }
+        }
+      }
+
       // 2) erase a node from the deeply nested layers
       if (event.parent.showType == ShowType.season ||
           event.parent.showType == ShowType.episode) {
@@ -39,6 +46,16 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       }
     });
 
+    CollectionState renameNodeInHierarchy(String newName,
+        CollectionState nodeToChange, CollectionState currentNode) {
+      return currentNode.copyWith(
+          name: currentNode == nodeToChange ? newName : currentNode.name,
+          children: [
+            for (var child in currentNode.children)
+              renameNodeInHierarchy(newName, nodeToChange, child)
+          ]);
+    }
+
     on<UpdateNodeName>(((event, emit) {
       emit(renameNodeInHierarchy(
         event.newName,
@@ -46,6 +63,18 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
         state,
       ));
     }));
+
+    CollectionState renameWebAddressInHierarchy(String newWebAddress,
+        CollectionState nodeToChange, CollectionState currentNode) {
+      return currentNode.copyWith(
+          webAddress: currentNode == nodeToChange
+              ? newWebAddress
+              : currentNode.webAddress,
+          children: [
+            for (var child in currentNode.children)
+              renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
+          ]);
+    }
 
     on<UpdateNodeWebAddress>((event, emit) {
       emit(renameWebAddressInHierarchy(

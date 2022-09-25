@@ -31,12 +31,3 @@ void deleteNode({
           ));
 }
 
-void deleteNodeFromHierarchy(CollectionState object, CollectionState node) {
-  if (node.children.contains(object)) {
-    node.children.remove(object);
-  } else {
-    for (CollectionState child in node.children) {
-      deleteNodeFromHierarchy(object, child);
-    }
-  }
-}

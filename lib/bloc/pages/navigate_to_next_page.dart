@@ -29,7 +29,8 @@ class AdaptiveVideoPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? webAddress = parentNode.webAddress;
-    // webAddress = 'https://www.youtube.com/watch?v=5pdnzUjmkzA';
+    // webAddress1 = 'https://www.youtube.com/watch?v=5pdnzUjmkzA';
+    // webAddress2 = 'https://www.youtube.com/shorts/h2KWUvwJvAI';
     return BlocBuilder<CollectionBloc, CollectionState>(
       builder: (context, state) {
         return Scaffold(
@@ -69,8 +70,7 @@ class _TopHatVideoPlayerState extends State<TopHatVideoPlayer> {
     String? processedURL = ProcessURL.convertToUseableURL(widget.webAddress);
 
     controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(processedURL!)!,
-    );
+        initialVideoId: YoutubePlayer.convertUrlToId(processedURL!)!);
   }
 
   @override

@@ -74,16 +74,15 @@ class MyHomePage extends StatelessWidget {
                       style: TextStyle(color: textColor),
                     ),
                   ),
-                  trailing: // icon button
-                      nodes.showType == ShowType.collection
-                          ? null
-                          : IconButton(
-                              icon: const Icon(
-                                Icons.remove_circle_outline_outlined,
-                              ),
-                              onPressed: () =>
-                                  deleteNode(parent: nodes, context: context),
-                            ),
+                  trailing: nodes.showType == ShowType.collection
+                      ? null
+                      : IconButton(
+                          icon: const Icon(
+                            Icons.remove_circle_outline_outlined,
+                          ),
+                          onPressed: () =>
+                              deleteNode(parent: nodes, context: context),
+                        ),
                 ),
               );
             },
