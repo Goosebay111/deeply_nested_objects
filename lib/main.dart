@@ -1,5 +1,5 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
-import 'package:deeply_nested_objects/bloc/pages/home_page.dart';
+import 'package:deeply_nested_objects/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
-import 'package:deeply_nested_objects/bloc/pages/navigate_to_next_page.dart';
+import 'package:deeply_nested_objects/pages/navigate_to_next_page.dart';
 import 'package:deeply_nested_objects/helper_functions/naming_dialog_box.dart';
 
 void createNode({
