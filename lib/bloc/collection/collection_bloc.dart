@@ -4,9 +4,9 @@ import 'package:deeply_nested_objects/helper_functions/delete_child_from_parent_
 import 'package:deeply_nested_objects/helper_functions/delete_node_from_hierarchy.dart';
 import 'package:deeply_nested_objects/helper_functions/renaming_node_in_hierarchy.dart';
 import 'package:deeply_nested_objects/helper_functions/renaming_web_address_in_hierarchy.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
+class CollectionBloc extends HydratedBloc<CollectionEvents, CollectionState> {
   CollectionBloc() : super(CollectionState.initial()) {
     ///
     on<AddToTopLayerData>((event, emit) =>
@@ -36,5 +36,15 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       (event, emit) => emit(renameWebAddressInHierarchy(
           event.newWebAddress!, event.parent, state)),
     );
+  }
+
+  @override
+  CollectionState? fromJson(Map<String, dynamic> json) {
+    return CollectionState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(CollectionState state) {
+    return state.toJson();
   }
 }

@@ -35,4 +35,24 @@ class CollectionState {
       showType: showType ?? this.showType,
     );
   }
+
+  // return a json representation of the object
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'webAddress': webAddress,
+      'children': children,
+      'showType': showType.toString(),
+    };
+  }
+
+  // return a new object from a json representation
+  factory CollectionState.fromJson(Map<String, dynamic> json) {
+    return CollectionState(
+      name: json['name'],
+      webAddress: json['webAddress'],
+      children: json['children'],
+      showType: json['showType'] as ShowType,
+    );
+  }
 }
