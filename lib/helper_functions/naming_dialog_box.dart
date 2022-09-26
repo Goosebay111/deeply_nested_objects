@@ -16,7 +16,7 @@ Future namingDialogBox({
       return AlertDialog(
         title: Text(newRequest),
         content: TextField(
-          maxLength: youTube == false ? 20 : 50,
+          maxLength: youTube ? 50 : 20,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           controller: controller,
         ),
