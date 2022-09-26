@@ -26,7 +26,7 @@ Future namingDialogBox({
             child: TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Icon(
-                Icons.add,
+                Icons.add_circle_outline_outlined,
                 color: Colors.red,
                 size: 40,
               ),
@@ -35,7 +35,7 @@ Future namingDialogBox({
           TextButton(
             onPressed: () => Navigator.of(context).pop(controller.text),
             child: const Icon(
-              Icons.add,
+              Icons.check_circle_outline_outlined,
               color: Color(0xff258029),
               size: 40,
             ),
