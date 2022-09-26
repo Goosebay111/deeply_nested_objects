@@ -1,4 +1,4 @@
-enum ShowType { collection, series, season, episode }
+import 'package:deeply_nested_objects/enums/show_type_enum.dart';
 
 class CollectionState {
   const CollectionState(

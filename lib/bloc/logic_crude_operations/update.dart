@@ -1,13 +1,12 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
+import 'package:deeply_nested_objects/enums/show_type_enum.dart';
 import 'package:deeply_nested_objects/helper_functions/naming_dialog_box.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void updateNodeName({
- // required String name,
   required CollectionState parent,
- // required ShowType showType,
   required context,
 }) async {
   if (parent.showType == ShowType.collection) {

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
   CollectionBloc() : super(CollectionState.initial()) {
+    ///
     on<AddToTopLayerData>((event, emit) =>
         emit(state.copyWith(children: [...state.children, event.newChild])));
 

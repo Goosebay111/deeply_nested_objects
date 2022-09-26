@@ -1,3 +1,4 @@
+import 'package:deeply_nested_objects/enums/show_type_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
