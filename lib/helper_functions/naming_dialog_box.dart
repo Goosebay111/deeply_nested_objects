@@ -7,7 +7,6 @@ Future namingDialogBox({
   required String newRequest,
   String currentText = '',
   bool youTube = false,
-  bool uniqueCode = false,
 }) async {
   TextEditingController controller = TextEditingController()
     ..text = currentText;
