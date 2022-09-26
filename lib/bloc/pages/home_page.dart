@@ -18,7 +18,7 @@ class MyHomePage extends StatelessWidget {
           appBar: AppBar(
             centerTitle: false,
             leadingWidth: 0.0,
-            title: const Text('Deeply Nested Objects and BLoC'),
+            title: const Text('ToView App with Bloc 8.0.0+'),
           ),
           body: ListView.separated(
             separatorBuilder: (context, index) => const Divider(height: 1),
@@ -44,34 +44,34 @@ class MyHomePage extends StatelessWidget {
                   ],
                 );
               }
-              var nodes =
+              var node =
                   getAllNodesOfParentExcludingParent(parentNode: state)[index];
-              Color textColor = getColor(nodes);
-              double distance = getPaddingDistance(nodes);
+              Color textColor = getColor(node);
+              double distance = getPaddingDistance(node);
               return Padding(
                 padding: EdgeInsets.only(left: distance),
                 child: ListTile(
                   onTap: () => createNode(
-                    parentNode: nodes,
+                    parentNode: node,
                     context: context,
                   ),
                   onLongPress: () {
-                    updateNodeName(parent: nodes, context: context);
+                    updateNodeName(parent: node, context: context);
                   },
                   leading: Card(
                     child: Text(
-                      nodes.name,
+                      node.name,
                       style: TextStyle(color: textColor),
                     ),
                   ),
-                  trailing: nodes.showType == ShowType.collection
+                  trailing: node.showType == ShowType.collection
                       ? null
                       : IconButton(
                           icon: const Icon(
                             Icons.remove_circle_outline_outlined,
                           ),
                           onPressed: () =>
-                              deleteNode(parent: nodes, context: context),
+                              deleteNode(parent: node, context: context),
                         ),
                 ),
               );

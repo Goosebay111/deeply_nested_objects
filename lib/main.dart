@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => CollectionBloc(),
       child: MaterialApp(
-        title: 'TopHat',
+        title: 'ToVo App',
         theme: ThemeData(
           brightness: Brightness.light,
           colorScheme: const ColorScheme.light(background: Colors.white),
@@ -30,4 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
