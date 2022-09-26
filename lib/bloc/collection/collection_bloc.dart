@@ -1,5 +1,8 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
+import 'package:deeply_nested_objects/helper_functions/delete_node_from_hierarchy.dart';
+import 'package:deeply_nested_objects/helper_functions/renaming_node_in_hierarchy.dart';
+import 'package:deeply_nested_objects/helper_functions/renaming_web_address_in_hierarchy.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
@@ -26,11 +29,8 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
     }));
 
     on<DeleteFromNestedNode>((event, emit) {
-      if (event.parent.showType == ShowType.season ||
-          event.parent.showType == ShowType.episode) {
-        deleteNodeFromHierarchy(event.parent, state);
-        emit(state.copyWith(children: [...state.children]));
-      }
+      deleteNodeFromHierarchy(event.parent, state);
+      emit(state.copyWith(children: [...state.children]));
     });
 
     on<UpdateNodeName>(((event, emit) {
@@ -41,36 +41,5 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
       emit(renameWebAddressInHierarchy(
           event.newWebAddress!, event.parent, state));
     });
-  }
-}
-
-CollectionState renameNodeInHierarchy(
-    String newName, CollectionState nodeToChange, CollectionState currentNode) {
-  return currentNode.copyWith(
-      name: currentNode == nodeToChange ? newName : currentNode.name,
-      children: [
-        for (var child in currentNode.children)
-          renameNodeInHierarchy(newName, nodeToChange, child)
-      ]);
-}
-
-CollectionState renameWebAddressInHierarchy(String newWebAddress,
-    CollectionState nodeToChange, CollectionState currentNode) {
-  return currentNode.copyWith(
-      webAddress:
-          currentNode == nodeToChange ? newWebAddress : currentNode.webAddress,
-      children: [
-        for (var child in currentNode.children)
-          renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
-      ]);
-}
-
-void deleteNodeFromHierarchy(CollectionState object, CollectionState node) {
-  if (node.children.contains(object)) {
-    node.children.remove(object);
-  } else {
-    for (CollectionState child in node.children) {
-      deleteNodeFromHierarchy(object, child);
-    }
   }
 }

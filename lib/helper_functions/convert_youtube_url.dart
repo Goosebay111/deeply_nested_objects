@@ -1,4 +1,4 @@
-// https://dev.to/0xba1/using-regular-expressionsregexp-in-dartflutter-3p1j
+/// https://dev.to/0xba1/using-regular-expressionsregexp-in-dartflutter-3p1j
 
 class ProcessURL {
   static String? convertToUseableURL(String? youTubeUrl) {
@@ -25,7 +25,7 @@ class ProcessURL {
   }
 
   static String? _convertYoutubeShortsUrlToVideoUrl(String? youtubeUrl) {
-    // i.e. convert the string https://www.youtube.com/shorts/jC0J4mG_Rxs to https://www.youtube.com/watch?v=jC0J4mG_Rxs
+    /// i.e. convert the string https://www.youtube.com/shorts/jC0J4mG_Rxs to https://www.youtube.com/watch?v=jC0J4mG_Rxs
     if (youtubeUrl == null) {
       return null;
     }
