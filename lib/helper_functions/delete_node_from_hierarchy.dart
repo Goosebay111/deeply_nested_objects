@@ -1,14 +1,15 @@
+import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
 
 CollectionState deleteNodeFromHierarchy(
-    CollectionState object, CollectionState node) {
-  if (node.children.contains(object)) {
-    node.children.remove(object);
+    CollectionState state, DeleteFromNestedNode event) {
+  if (state.children.contains(event.parent)) {
+    state.children.remove(event.parent);
   } else {
-    for (CollectionState child in node.children) {
-      deleteNodeFromHierarchy(object, child);
+    for (CollectionState child in state.children) {
+      deleteNodeFromHierarchy(child, event);
     }
   }
   // return node;
-  return node.copyWith(children: [...node.children]);
+  return state.copyWith(children: [...state.children]);
 }

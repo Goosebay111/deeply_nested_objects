@@ -1,12 +1,13 @@
+import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
 
-CollectionState renameWebAddressInHierarchy(String newWebAddress,
-    CollectionState nodeToChange, CollectionState currentNode) {
-  return currentNode.copyWith(
+CollectionState renameWebAddressInHierarchy(
+    CollectionState state, UpdateNodeWebAddress event) {
+  return state.copyWith(
       webAddress:
-          currentNode == nodeToChange ? newWebAddress : currentNode.webAddress,
+          state == event.parent ? event.newWebAddress : state.webAddress,
       children: [
-        for (var child in currentNode.children)
-          renameWebAddressInHierarchy(newWebAddress, nodeToChange, child)
+        for (var child in state.children)
+          renameWebAddressInHierarchy(child, event)
       ]);
 }

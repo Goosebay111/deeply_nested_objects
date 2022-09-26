@@ -1,5 +1,6 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
+import 'package:deeply_nested_objects/helper_functions/add_to_top_layer.dart';
 import 'package:deeply_nested_objects/helper_functions/delete_child_from_parent_node.dart';
 import 'package:deeply_nested_objects/helper_functions/delete_node_from_hierarchy.dart';
 import 'package:deeply_nested_objects/helper_functions/renaming_node_in_hierarchy.dart';
@@ -9,8 +10,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 class CollectionBloc extends HydratedBloc<CollectionEvents, CollectionState> {
   CollectionBloc() : super(CollectionState.initial()) {
     ///
-    on<AddToTopLayerData>((event, emit) =>
-        emit(state.copyWith(children: [...state.children, event.newChild])));
+    on<AddToTopLayerData>(
+        (event, emit) => emit(addToTopLayerData(state, event)));
 
     on<AddToDeeplyNestedData>(
       (event, emit) {
@@ -20,21 +21,19 @@ class CollectionBloc extends HydratedBloc<CollectionEvents, CollectionState> {
     );
 
     on<DeleteFromParentNode>(
-      ((event, emit) => emit(deleteChildFromParentNode(state, event.parent))),
+      ((event, emit) => emit(deleteChildFromParentNode(state, event))),
     );
 
     on<DeleteFromNestedNode>(
-      (event, emit) => emit(deleteNodeFromHierarchy(event.parent, state)),
+      (event, emit) => emit(deleteNodeFromHierarchy(state, event)),
     );
 
     on<UpdateNodeName>(
-      ((event, emit) =>
-          emit(renameNodeInHierarchy(event.newName, event.parent, state))),
+      ((event, emit) => emit(renameNodeInHierarchy(state, event))),
     );
 
     on<UpdateNodeWebAddress>(
-      (event, emit) => emit(renameWebAddressInHierarchy(
-          event.newWebAddress!, event.parent, state)),
+      (event, emit) => emit(renameWebAddressInHierarchy(state, event)),
     );
   }
 
