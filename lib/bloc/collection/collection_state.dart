@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:deeply_nested_objects/enums/show_type_enum.dart';
 import 'package:deeply_nested_objects/helper_functions/get_show_type.dart';
 
