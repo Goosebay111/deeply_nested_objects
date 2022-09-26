@@ -78,11 +78,7 @@ class _TopHatVideoPlayerState extends State<TopHatVideoPlayer> {
         controller: controller,
       ),
       builder: (context, player) {
-        return ListView(
-          children: [
-            player,
-          ],
-        );
+        return ListView(children: [player]);
       },
     );
   }
