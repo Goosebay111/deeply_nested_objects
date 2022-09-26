@@ -1,6 +1,7 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
 
-void deleteNodeFromHierarchy(CollectionState object, CollectionState node) {
+CollectionState deleteNodeFromHierarchy(
+    CollectionState object, CollectionState node) {
   if (node.children.contains(object)) {
     node.children.remove(object);
   } else {
@@ -8,4 +9,6 @@ void deleteNodeFromHierarchy(CollectionState object, CollectionState node) {
       deleteNodeFromHierarchy(object, child);
     }
   }
+  // return node;
+  return node.copyWith(children: [...node.children]);
 }

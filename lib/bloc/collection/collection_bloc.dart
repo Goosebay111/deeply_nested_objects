@@ -1,5 +1,6 @@
 import 'package:deeply_nested_objects/bloc/collection/collection_event.dart';
 import 'package:deeply_nested_objects/bloc/collection/collection_state.dart';
+import 'package:deeply_nested_objects/helper_functions/delete_child_from_parent_node.dart';
 import 'package:deeply_nested_objects/helper_functions/delete_node_from_hierarchy.dart';
 import 'package:deeply_nested_objects/helper_functions/renaming_node_in_hierarchy.dart';
 import 'package:deeply_nested_objects/helper_functions/renaming_web_address_in_hierarchy.dart';
@@ -13,33 +14,26 @@ class CollectionBloc extends Bloc<CollectionEvents, CollectionState> {
     on<AddToDeeplyNestedData>(
       (event, emit) {
         event.parentNode.children.add(event.newChild);
-
         emit(state.copyWith(children: [...state.children]));
       },
     );
 
-    on<DeleteFromParentNode>(((event, emit) {
-      emit(
-        state.copyWith(
-          children: state.children
-              .where((element) => element != event.parent)
-              .toList(),
-        ),
-      );
-    }));
+    on<DeleteFromParentNode>(
+      ((event, emit) => emit(deleteChildFromParentNode(state, event.parent))),
+    );
 
-    on<DeleteFromNestedNode>((event, emit) {
-      deleteNodeFromHierarchy(event.parent, state);
-      emit(state.copyWith(children: [...state.children]));
-    });
+    on<DeleteFromNestedNode>(
+      (event, emit) => emit(deleteNodeFromHierarchy(event.parent, state)),
+    );
 
-    on<UpdateNodeName>(((event, emit) {
-      emit(renameNodeInHierarchy(event.newName, event.parent, state));
-    }));
+    on<UpdateNodeName>(
+      ((event, emit) =>
+          emit(renameNodeInHierarchy(event.newName, event.parent, state))),
+    );
 
-    on<UpdateNodeWebAddress>((event, emit) {
-      emit(renameWebAddressInHierarchy(
-          event.newWebAddress!, event.parent, state));
-    });
+    on<UpdateNodeWebAddress>(
+      (event, emit) => emit(renameWebAddressInHierarchy(
+          event.newWebAddress!, event.parent, state)),
+    );
   }
 }
