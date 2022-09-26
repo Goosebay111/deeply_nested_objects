@@ -38,11 +38,7 @@ class MyHomePage extends StatelessWidget {
                         size: 50,
                       ),
                       onPressed: () async {
-                        createNode(
-                          parentNode: state,
-                          showType: state.showType,
-                          context: context,
-                        );
+                        createNode(parentNode: state, context: context);
                       },
                     ),
                   ],
@@ -57,16 +53,10 @@ class MyHomePage extends StatelessWidget {
                 child: ListTile(
                   onTap: () => createNode(
                     parentNode: nodes,
-                    showType: nodes.showType,
                     context: context,
                   ),
                   onLongPress: () {
-                    updateNodeName(
-                      name: nodes.name,
-                      parent: nodes,
-                      showType: nodes.showType,
-                      context: context,
-                    );
+                    updateNodeName(parent: nodes, context: context);
                   },
                   leading: Card(
                     child: Text(

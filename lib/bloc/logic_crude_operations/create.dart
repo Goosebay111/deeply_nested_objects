@@ -8,10 +8,9 @@ import 'package:deeply_nested_objects/helper_functions/naming_dialog_box.dart';
 
 void createNode({
   required CollectionState parentNode,
-  required ShowType showType,
   required BuildContext context,
 }) {
-  switch (showType) {
+  switch (parentNode.showType) {
     case ShowType.collection:
       addToTopLayer(
         name: 'Series ${parentNode.children.length + 1}',

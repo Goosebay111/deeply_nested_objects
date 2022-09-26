@@ -5,24 +5,24 @@ import 'package:deeply_nested_objects/helper_functions/naming_dialog_box.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void updateNodeName({
-  required String name,
+ // required String name,
   required CollectionState parent,
-  required ShowType showType,
+ // required ShowType showType,
   required context,
 }) async {
-  if (showType == ShowType.collection) {
+  if (parent.showType == ShowType.collection) {
     return;
   }
 
   String? newName = await namingDialogBox(
     context: context,
-    currentText: name,
+    currentText: parent.name,
     newRequest: 'Rename Collection',
   );
 
   BlocProvider.of<CollectionBloc>(context).add(
     UpdateNodeName(
-      newName: newName ?? name,
+      newName: newName ?? parent.name,
       parent: parent,
     ),
   );
