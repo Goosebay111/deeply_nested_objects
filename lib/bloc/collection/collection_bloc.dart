@@ -6,7 +6,7 @@ import 'package:deeply_nested_objects/helper_functions/delete_node_from_hierarch
 import 'package:deeply_nested_objects/helper_functions/renaming_node_in_hierarchy.dart';
 import 'package:deeply_nested_objects/helper_functions/renaming_web_address_in_hierarchy.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-
+// saved for good work
 class CollectionBloc extends HydratedBloc<CollectionEvents, CollectionState> {
   CollectionBloc() : super(CollectionState.initial()) {
     ///
