@@ -8,8 +8,24 @@ void deleteNode({
   required parent,
   required context,
 }) async {
-  // add dialog box here asking if the user is sure they want to delete the node
-  showDialog(
+  switch (parent.showType) {
+    case ShowType.collection:
+      return;
+    case ShowType.series:
+      deleteFromParentNode(context, parent);
+      return;
+    case ShowType.season:
+      deleteFromNestedNode(context, parent);
+      return;
+    case ShowType.episode:
+      deleteFromNestedNode(context, parent);
+      return;
+  }
+  deleteFromParentNode(context, parent);
+}
+
+Future<dynamic> deleteFromParentNode(context, parent) {
+  return showDialog(
     context: context,
     builder: (context) => AlertDialog(
       title: const Text('Are you sure you want to delete this node?'),
@@ -22,9 +38,31 @@ void deleteNode({
           onPressed: () {
             Navigator.pop(context);
             BlocProvider.of<CollectionBloc>(context).add(
-              (parent.showType == ShowType.series)
-                  ? DeleteFromParentNode(parent: parent)
-                  : DeleteFromNestedNode(parent: parent),
+              DeleteFromParentNode(parent: parent),
+            );
+          },
+          child: const Text('Yes'),
+        ),
+      ],
+    ),
+  );
+}
+
+Future<dynamic> deleteFromNestedNode(context, parent) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Are you sure you want to delete this node?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('No'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            BlocProvider.of<CollectionBloc>(context).add(
+              DeleteFromNestedNode(parent: parent),
             );
           },
           child: const Text('Yes'),

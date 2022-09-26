@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:deeply_nested_objects/bloc/collection/collection_bloc.dart';
 import 'package:deeply_nested_objects/helper_functions/convert_youtube_url.dart';
 import 'package:flutter/material.dart';

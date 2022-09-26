@@ -83,7 +83,6 @@ void addToNodes({
     newRequest: newRequest,
     youTube: youTube,
   );
-
   ///
   if (showType == ShowType.season) {
     BlocProvider.of<CollectionBloc>(context).add(
