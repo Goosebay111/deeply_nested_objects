@@ -83,30 +83,33 @@ void addToNodes({
     newRequest: newRequest,
     youTube: youTube,
   );
-  ///
-  if (showType == ShowType.season) {
-    BlocProvider.of<CollectionBloc>(context).add(
-      AddToDeeplyNestedData(
-        newChild: CollectionState(
-          name: newName ?? name,
-          webAddress: null,
-          showType: showType,
-          children: [],
+
+  switch (showType) {
+    case ShowType.season:
+      BlocProvider.of<CollectionBloc>(context).add(
+        AddToDeeplyNestedData(
+          newChild: CollectionState(
+            name: newName ?? name,
+            webAddress: null,
+            showType: showType,
+            children: [],
+          ),
+          parent: parent,
         ),
-        parentNode: parent,
-      ),
-    );
-  } else if (showType == ShowType.episode) {
-    BlocProvider.of<CollectionBloc>(context).add(
-      AddToDeeplyNestedData(
-        newChild: CollectionState(
-          name: 'Episode ${parent.children.length + 1}',
-          webAddress: newName ?? name,
-          showType: showType,
-          children: [],
+      );
+      return;
+    case ShowType.episode:
+      BlocProvider.of<CollectionBloc>(context).add(
+        AddToDeeplyNestedData(
+          newChild: CollectionState(
+            name: 'Episode ${parent.children.length + 1}',
+            webAddress: newName ?? name,
+            showType: showType,
+            children: [],
+          ),
+          parent: parent,
         ),
-        parentNode: parent,
-      ),
-    );
+      );
+      return;
   }
 }

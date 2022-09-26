@@ -14,7 +14,7 @@ class CollectionBloc extends HydratedBloc<CollectionEvents, CollectionState> {
 
     on<AddToDeeplyNestedData>(
       (event, emit) {
-        event.parentNode.children.add(event.newChild);
+        event.parent.children.add(event.newChild);
         emit(state.copyWith(children: [...state.children]));
       },
     );

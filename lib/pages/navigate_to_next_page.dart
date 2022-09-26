@@ -27,8 +27,8 @@ class AdaptiveVideoPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? webAddress = parentNode.webAddress;
-    // webAddress1 = 'https://www.youtube.com/watch?v=5pdnzUjmkzA';
-    // webAddress2 = 'https://www.youtube.com/shorts/h2KWUvwJvAI';
+    // 'https://www.youtube.com/watch?v=5pdnzUjmkzA'
+    // 'https://www.youtube.com/shorts/h2KWUvwJvAI'
     return BlocBuilder<CollectionBloc, CollectionState>(
       builder: (context, state) {
         return Scaffold(
@@ -42,22 +42,22 @@ class AdaptiveVideoPlayer extends StatelessWidget {
                     ),
                   ],
                 ),
-          body: TopHatVideoPlayer(webAddress: webAddress!),
+          body: ToViewVideoPlayer(webAddress: webAddress!),
         );
       },
     );
   }
 }
 
-class TopHatVideoPlayer extends StatefulWidget {
-  const TopHatVideoPlayer({super.key, required this.webAddress});
+class ToViewVideoPlayer extends StatefulWidget {
+  const ToViewVideoPlayer({super.key, required this.webAddress});
   final String webAddress;
 
   @override
-  State<TopHatVideoPlayer> createState() => _TopHatVideoPlayerState();
+  State<ToViewVideoPlayer> createState() => _ToViewVideoPlayerState();
 }
 
-class _TopHatVideoPlayerState extends State<TopHatVideoPlayer> {
+class _ToViewVideoPlayerState extends State<ToViewVideoPlayer> {
   late YoutubePlayerController controller;
 
   @override
