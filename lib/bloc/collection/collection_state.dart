@@ -1,8 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:deeply_nested_objects/enums/show_type_enum.dart';
+import 'package:deeply_nested_objects/helper_functions/get_show_type.dart';
 
 class CollectionState {
-  const CollectionState(
-    {
+  const CollectionState({
     required this.name,
     required this.webAddress,
     required this.children,
@@ -36,23 +38,26 @@ class CollectionState {
     );
   }
 
-  // return a json representation of the object
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'webAddress': webAddress,
-      'children': children,
+      'children': children.map((e) => e.toJson()).toList(),
       'showType': showType.toString(),
     };
   }
 
-  // return a new object from a json representation
   factory CollectionState.fromJson(Map<String, dynamic> json) {
     return CollectionState(
-      name: json['name'],
-      webAddress: json['webAddress'],
-      children: json['children'],
-      showType: json['showType'] as ShowType,
+      name: json['name'] as String,
+      webAddress:
+          json['webAddress'] != null ? json['webAddress'] as String : null,
+      children: List<CollectionState>.from(
+        (json['children']).map<CollectionState>(
+          (child) => CollectionState.fromJson(child as Map<String, dynamic>),
+        ),
+      ),
+      showType: getShowType(json['showType']) as ShowType,
     );
   }
 }

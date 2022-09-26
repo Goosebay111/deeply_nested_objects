@@ -40,7 +40,12 @@ class CollectionBloc extends HydratedBloc<CollectionEvents, CollectionState> {
 
   @override
   CollectionState? fromJson(Map<String, dynamic> json) {
-    return CollectionState.fromJson(json);
+    try {
+      return CollectionState.fromJson(json);
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   @override
