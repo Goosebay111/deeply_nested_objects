@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 
-Future namingDialogBox(
-    {required BuildContext context,
-    required String newRequest,
-    String currentText = '',
-    bool youTube = false,
-    bool uniqueCode = false}) async {
+Future namingDialogBox({
+  required BuildContext context,
+  required String newRequest,
+  String currentText = '',
+  bool youTube = false,
+  bool uniqueCode = false,
+}) async {
   TextEditingController controller = TextEditingController()
     ..text = currentText;
   return showDialog(
@@ -16,11 +17,7 @@ Future namingDialogBox(
       return AlertDialog(
         title: Text(newRequest),
         content: TextField(
-          maxLength: uniqueCode
-              ? 24
-              : youTube == false
-                  ? 20
-                  : 50,
+          maxLength: youTube == false ? 20 : 50,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           controller: controller,
         ),
