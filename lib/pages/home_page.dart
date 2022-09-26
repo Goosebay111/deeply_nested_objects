@@ -4,6 +4,7 @@ import 'package:deeply_nested_objects/bloc/logic_crude_operations/create.dart';
 import 'package:deeply_nested_objects/bloc/logic_crude_operations/delete.dart';
 import 'package:deeply_nested_objects/bloc/logic_crude_operations/read.dart';
 import 'package:deeply_nested_objects/bloc/logic_crude_operations/update.dart';
+import 'package:deeply_nested_objects/enums/show_type_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
