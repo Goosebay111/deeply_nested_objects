@@ -21,7 +21,6 @@ void deleteNode({
       deleteFromNestedNode(context, parent);
       return;
   }
- // deleteFromParentNode(context, parent);
 }
 
 Future<dynamic> deleteFromParentNode(context, parent) {
