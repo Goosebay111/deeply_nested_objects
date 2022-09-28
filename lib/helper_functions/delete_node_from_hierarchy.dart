@@ -10,6 +10,5 @@ CollectionState deleteNodeFromHierarchy(
       deleteNodeFromHierarchy(child, event);
     }
   }
-  // return node;
   return state.copyWith(children: [...state.children]);
 }

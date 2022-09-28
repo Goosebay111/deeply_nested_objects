@@ -27,8 +27,6 @@ class AdaptiveVideoPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? webAddress = parentNode.webAddress;
-    // 'https://www.youtube.com/watch?v=5pdnzUjmkzA'
-    // 'https://www.youtube.com/shorts/h2KWUvwJvAI'
     return BlocBuilder<CollectionBloc, CollectionState>(
       builder: (context, state) {
         return Scaffold(
